@@ -72,17 +72,18 @@ after re-executing , the system should read account datas from the database befo
 class Asset_Operation():
     
     pass
-
+# Get_coin_info
+this class will get the required information for decision analysis
 
 
 # Decision Analysis
 
 
-+ Decision Analysis class will be  the brain of the  algortihm
++ Signal Analysis class will be  the brain of the  algortihm
 + ALL DECISIONS WILL BE MADE IN THIS CLASS
 
 
-class Decision_Analysis():
+class Signal_Analysis():
     
 
     def ML_analysis():

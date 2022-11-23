@@ -4,39 +4,16 @@ import json
 from datetime import datetime
 import seaborn as sns
 import mplfinance as mpf
+import Api_code
 
-
-
-class Monitorizing:
-    
-    pass
-
-
-
-#Logging
-## deeneme deneme
-
-class Account:
-    
-    
-    pass
-
-
-
-
-
-
-class Asset_Operation():
-    
-    pass
 
 
 class Decision_Analysis():
 
 
-    api_key = "API_KEY"
+    api_key = Api_code.api_key
 
-    api_secret = "API_SECRET"
+    api_secret = Api_code.api_secret
 
     client = Client(api_key, api_secret)
 

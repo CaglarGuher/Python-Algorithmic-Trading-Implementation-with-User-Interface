@@ -43,7 +43,7 @@ class Get_info:
     Client.KLINE_INTERVAL_3MINUTE = "3min"
     Client.KLINE_INTERVAL_1MINUTE = "1min"
 ############################################
-    def df_formatting(self):
+    def df(self):
        
 
         from_time = int(datetime.strptime(self.startdate, "%Y-%m-%d").timestamp()*1000)
@@ -58,20 +58,21 @@ class Get_info:
 
         return self.dataframe
 
-
-    def show_info(self):
-        Get_info.df_formatting(self)
-        print(self.dataframe)
         
 
-    def show_current_price(self):
-        print (client.get_margin_price_index(symbol=self.coinname)["price"])
+    def current_price(self):
+        return client.get_margin_price_index(symbol=self.coinname)["price"]
 
     def show_graph(self,a,b):
-        Get_info.df_formatting(self)
-        print (mpf.plot(self.dataframe.set_index("CloseTime"),type = "line" ,style = "charles",mav =(a,b),volume = True))
+        Get_info.df(self)
+        return mpf.plot(self.dataframe.set_index("CloseTime"),type = "line" ,style = "charles",mav =(a,b),volume = True)
 
-###TEST
-a = Get_info(coinname="ETHUSDT",interval = "1w",startdate="2020-06-06")
-a.show_info()
-###TEST
+
+a = Get_info(coinname="ETHUSDT",interval = "5min",startdate="2022-06-06")
+print(a.df())
+
+print(a.current_price())
+
+print(a.show_graph(20,50))
+
+###TESTING

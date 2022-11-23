@@ -73,6 +73,8 @@ class Asset_Operation():
     
     pass
 # Get_coin_info
+
+
 this class will get the required information for decision analysis
 
 

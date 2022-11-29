@@ -16,12 +16,12 @@ client = Client(api_key, api_secret)
 
 class Get_info:
 
-    def __init__(self , coinname , interval , startdate  , dataframe = []):
+    def __init__(self , coinname , interval = "4h" , startdate ="2021-01-01"  , dataframe = []):
         '''
         format examples:
         coinname format = "BTCUSDT"
         interval format = "1m"
-        fromtime format = 2020-06-06
+        fromtime format = "2020-06-06"
         '''
         self.coinname =coinname
         self.interval = interval
@@ -43,7 +43,7 @@ class Get_info:
     Client.KLINE_INTERVAL_3MINUTE = "3min"
     Client.KLINE_INTERVAL_1MINUTE = "1min"
 ############################################
-    def df(self):
+    def give_df(self):
        
 
         from_time = int(datetime.strptime(self.startdate, "%Y-%m-%d").timestamp()*1000)
@@ -60,11 +60,11 @@ class Get_info:
 
         
 
-    def current_price(self):
+    def give_current_price(self):
         return client.get_margin_price_index(symbol=self.coinname)["price"]
 
     def show_graph(self,a,b):
-        Get_info.df(self)
+        Get_info.give_df(self)
         return mpf.plot(self.dataframe.set_index("CloseTime"),type = "line" ,style = "charles",mav =(a,b),volume = True)
 
 

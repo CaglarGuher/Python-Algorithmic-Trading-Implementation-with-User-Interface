@@ -2,6 +2,8 @@
 from Get_coin_info import Get_info as GI
 import pandas as pd
 import mplfinance as mpf
+import random
+import time
 
 
 '''
@@ -16,48 +18,79 @@ BTC,ETH,BNB,XRP,ADA,DOGE,MATIC,DOT,DAI,SHIB
 
 
 class Signal_Analysis():
+
+
     
-    Testing = True
+
+    
+    def __init__(self,suggested_coin = ""):
+
+
+        self.suggested_coin = suggested_coin
+    
+    
 
 
     '''
     it will initialize every 1 min 
 
-    
-    
+    for now,random coin will be suggested every 1 min and send it to Asset Operation
     '''
 
 
-    coin_names = ["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","ADAUSDT","DOGEUSDT","MATICUSDT","DOTUSDT","DAIUSDT","SHIBUSDT"]
 
 
-    '''For now, coins will be checked manually inside a list.
-        After all the past datas are send to big database(mongodb or mysql)
-        every coin will be checked automatically     
-    '''
+
+    
+
+
     def coin_checker(self):
         pass
 
 
 
 
-
     def MA_Analysis(self,dataframe):
 
-        self.dataframe = dataframe
-        ma20 = self.dataframe["Close"].rolling(20).mean().values
-        ma50 = self.dataframe["Close"].rolling(50).mean().values
-        testing = pd.DataFrame(dict(OpMav20=ma20,OpMav50=ma50),index=self.dataframe.index)
-        ##testing##
-        
-        for i in range(0,len(testing)):
+        pass
 
-            first_crossection = 0
-            if ma20[i] > ma50[i]:
-                print("ma20:{ma20} is greater than ma50:{ma50}")
-                first_crossection = 1
-            if ma50[i] > ma20[i]:
-                print("ma20:{ma20} is less than ma50:{ma50}")
+
+    def Analysis2(self):
+
+        pass
+
+
+    def Analysis3(self):
+
+        pass
+
+    
+    def Analysis4(self):
+
+        pass
+
+    
+    def suggest_random_coin(self):
+
+        coin_names = ["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","ADAUSDT","DOGEUSDT","MATICUSDT","DOTUSDT","DAIUSDT","SHIBUSDT"]
+
+        self.suggested_coin = coin_names[random.randint(0,len(coin_names)-1)]
+
+        return self.suggested_coin
+        
+       
+        
+    pass
+
+
+
+
+
+
+
+
+
+       
 
 
 

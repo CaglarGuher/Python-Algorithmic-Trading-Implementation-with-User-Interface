@@ -68,11 +68,5 @@ class Get_info:
         return mpf.plot(self.dataframe.set_index("CloseTime"),type = "line" ,style = "charles",mav =(a,b),volume = True)
 
 
-a = Get_info(coinname="ETHUSDT",interval = "5min",startdate="2022-06-06")
-print(a.df())
 
-print(a.current_price())
 
-print(a.show_graph(20,50))
-
-###TESTING

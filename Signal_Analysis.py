@@ -35,37 +35,44 @@ class Signal_Analysis():
         After all the past datas are send to big database(mongodb or mysql)
         every coin will be checked automatically     
     '''
-    
+    def coin_checker(self):
+        pass
+
+
+
 
 
     def MA_Analysis(self,dataframe):
 
         self.dataframe = dataframe
-        ma10 = self.dataframe["Close"].rolling(10).mean().values
         ma20 = self.dataframe["Close"].rolling(20).mean().values
-        testing = pd.DataFrame(dict(OpMav10=ma10,OpMav20=ma20),index=self.dataframe.index)
+        ma50 = self.dataframe["Close"].rolling(50).mean().values
+        testing = pd.DataFrame(dict(OpMav20=ma20,OpMav50=ma50),index=self.dataframe.index)
         ##testing##
         
         for i in range(0,len(testing)):
 
             first_crossection = 0
-            if ma10[i] > ma20[i]:
-                print("ma10:{ma10} is greater than ma20:{ma20}")
+            if ma20[i] > ma50[i]:
+                print("ma20:{ma20} is greater than ma50:{ma50}")
                 first_crossection = 1
-            if ma20[i] > ma10[i]:
-                print("ma10:{ma10} is less than ma20:{ma20}")
+            if ma50[i] > ma20[i]:
+                print("ma20:{ma20} is less than ma50:{ma50}")
+
+
+
+    
+        
+
+
+    
 ##In the end as a test, signal analysis will give signal to a coin if ma10 cross ma20 from below
 ## to make that happen in a small period of time,it will check every min
             
 
 
 ##testing
-test1 = Signal_Analysis()
-B = GI(coinname="ETHUSDT",interval = "15min",startdate="2022-01-01")
 
-print(test1.MA_Analysis(B.df()))
-print(B.show_graph(10,20))
-        
         
 
         

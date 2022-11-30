@@ -1,10 +1,10 @@
-class Signal_Analysis():
+from Account_Asset_Operation import Account 
 
-    pass
 
-class Asset_Operation:
+testing = True
+A = Account(10000)
 
-    pass
-class Account:
+while testing:
+    A.Buy_Sell_coin()
+    A.Show_Balance()
     
-    pass

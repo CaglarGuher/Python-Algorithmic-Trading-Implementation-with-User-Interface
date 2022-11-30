@@ -60,8 +60,8 @@ class Get_info:
 
         
 
-    def give_current_price(self):
-        return client.get_margin_price_index(symbol=self.coinname)["price"]
+    def give_current_price(self ):
+        return float(client.get_margin_price_index(symbol=self.coinname)["price"])
 
     def show_graph(self,a,b):
         Get_info.give_df(self)

@@ -348,46 +348,7 @@ class Ui_MainWindow(object):
         self.cash_balance_display.clear()
         self.cash_balance_display.append(str(acc.show_cash_balance()))
         acc.calculate_total_balance()
-        
-        self.asset_order_show.clear()
-        self.asset_order_show.append(str(acc.Buy_Sell_coin()))
-        self.account_display.clear()
-        acc.show_account()
-        self.total_balance_display.clear()
-        self.total_balance_display.append(str(acc.calculate_total_balance()))
-        self.cash_balance_display.clear()
-        self.cash_balance_display.append(str(acc.show_cash_balance()))
-        acc.calculate_total_balance()
-        
-        self.asset_order_show.clear()
-        self.asset_order_show.append(str(acc.Buy_Sell_coin()))
-        self.account_display.clear()
-        acc.show_account()
-        self.total_balance_display.clear()
-        self.total_balance_display.append(str(acc.calculate_total_balance()))
-        self.cash_balance_display.clear()
-        self.cash_balance_display.append(str(acc.show_cash_balance()))
-        acc.calculate_total_balance()
-        
-        self.asset_order_show.clear()
-        self.asset_order_show.append(str(acc.Buy_Sell_coin()))
-        self.account_display.clear()
-        acc.show_account()
-        self.total_balance_display.clear()
-        self.total_balance_display.append(str(acc.calculate_total_balance()))
-        self.cash_balance_display.clear()
-        self.cash_balance_display.append(str(acc.show_cash_balance()))
-        acc.calculate_total_balance()
-        
-        self.asset_order_show.clear()
-        self.asset_order_show.append(str(acc.Buy_Sell_coin()))
-        self.account_display.clear()
-        acc.show_account()
-        self.total_balance_display.clear()
-        self.total_balance_display.append(str(acc.calculate_total_balance()))
-        self.cash_balance_display.clear()
-        self.cash_balance_display.append(str(acc.show_cash_balance()))
-
+      
             
 
             

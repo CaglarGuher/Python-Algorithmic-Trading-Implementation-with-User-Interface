@@ -32,27 +32,25 @@ class Account(Signal_Analysis):
 
 }
 
-    def Show_Balance(self):
+    def calculate_total_balance(self):
 
         for data in self.coin_balance["COIN_ACCOUNT"]: 
             self.total_balance = self.total_balance + (data["amount"] * GI(data["coin"]).give_current_price()) 
         self.total_balance = self.total_balance + self.cash_balance
 
-            
-        print("ACCOUNT BALANCE  \n-------------------\nCASH == ",self.cash_balance )
-        print("---------------")
-        print("total balance is == ",self.total_balance)
-        print("---------------")
-        print("Coins")
-        print(pd.DataFrame(self.coin_balance["COIN_ACCOUNT"]))
+        return self.total_balance
 
-        self.total_balance = 0
 
-            
+    def show_cash_balance(self):
+        return self.cash_balance
 
+    def show_account(self):
+        return pd.DataFrame(self.coin_balance["COIN_ACCOUNT"])
+
+    
 
     def Buy_Sell_coin(self):
-
+        
 
         a = Signal_Analysis().suggest_random_coin()
 
@@ -69,10 +67,12 @@ class Account(Signal_Analysis):
                     data["bought_unit_price"] = GI(a).give_current_price()
 
                     self.cash_balance = self.cash_balance -  self.cash_balance * 0.1
-
+                    
+            return (((self.cash_balance * 0.1)/GI(a).give_current_price()), "amount of " , a , " is bought ")
         
+    def return_bought_asset(self):
 
-
+        return
 
         
 #result of the signal analysis will be bought with spesific amount
@@ -85,8 +85,13 @@ class Account(Signal_Analysis):
 #if a coin is down 0.5 percent, sell it
         
         
-    def control_cash_amount(self):
-        pass
+testing = True
+
+a =Account(10000)
+
+
+
+
 
 
         
@@ -96,59 +101,10 @@ class Account(Signal_Analysis):
         
 
 
-    def Update_account(self):
-        """
-        refreshing the account every 1 sec
-        
-        """
-        pass
-
-
-
-
-
-
-
-'''
-balance = {
-            "COIN_ACCOUNT":
-            [
-    
-            {"coin" : Signal_Analysis().suggest_random_coin(),"amount" : 100,"dolar_eq" : 0},
-            {"coin" : Signal_Analysis().suggest_random_coin(),"amount" : 100,"dolar_eq" : 0},
-            {"coin" : Signal_Analysis().suggest_random_coin(),"amount" : 100,"dolar_eq" : 0},
-            {"coin" : Signal_Analysis().suggest_random_coin(),"amount" : 100,"dolar_eq" : 0},
-            {"coin" : Signal_Analysis().suggest_random_coin(),"amount" : 100,"dolar_eq" : 0},
-            ]
-}
-
-print(pd.DataFrame(balance["COIN_ACCOUNT"]))
+   
 
 
     
-
-for data in balance["COIN_ACCOUNT"]:
-    print(data , "\n----------------")
-print("---------------------------------------")
-
-time.sleep(2)
-
-
-for data in balance["COIN_ACCOUNT"]:
-    if data["coin"] == "XRPUSDT" :
-        data["amount"] = data["amount"] + 25
-    if data["coin"] == "BTCUSDT":
-        data["amount"] = data["amount"] - 25
-
-data = {"coin" : Signal_Analysis().suggest_random_coin(),"amount" : 100,"dolar_eq" : 0}
-
-balance["COIN_ACCOUNT"].append(data)
-
-for data in balance["COIN_ACCOUNT"]:
-    print(data , "\n----------------")
-print("---------------------------------------")
-
-'''           
 
                 
             

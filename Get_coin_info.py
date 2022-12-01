@@ -16,7 +16,7 @@ client = Client(api_key, api_secret)
 
 class Get_info:
 
-    def __init__(self , coinname , interval = "4h" , startdate ="2021-01-01"  , dataframe = []):
+    def __init__(self , coinname ,  startdate ="01.01.2021" , interval = "4h" ,  dataframe = [], ma1 = 0 , ma2 = 0):
         '''
         format examples:
         coinname format = "BTCUSDT"
@@ -27,7 +27,8 @@ class Get_info:
         self.interval = interval
         self.startdate = startdate
         self.dataframe = dataframe
-
+        self.ma1 = ma1
+        self.ma2 = ma2
 ############################################
     Client.KLINE_INTERVAL_1MONTH = "1m"
     Client.KLINE_INTERVAL_1WEEK = "1w"
@@ -63,10 +64,46 @@ class Get_info:
     def give_current_price(self ):
         return float(client.get_margin_price_index(symbol=self.coinname)["price"])
 
-    def show_graph(self,a,b):
-        Get_info.give_df(self)
-        return mpf.plot(self.dataframe.set_index("CloseTime"),type = "line" ,style = "charles",mav =(a,b),volume = True)
 
+    
+
+    def set_ma1_value(self,ma1 = int):
+
+        self.ma1 = ma1
+        return self.ma1
+
+    
+
+    def set_ma2_value(self,ma2 = int):
+        
+        self.ma2 = ma2
+        return self.ma2
+
+    
+
+    def hist_data_start_date(self,startdate):
+
+        self.startdate = startdate
+
+        return self.startdate
+    
+    
+    def set_volume_visualization(self):
+
+        return True
+
+    def set_price_interval(self,interval):
+
+        self.interval = interval
+
+        return self.interval
+
+
+
+    def show_graph(self):
+        
+        Get_info.give_df(self)
+        return mpf.plot(self.dataframe.set_index("CloseTime"),type = "line" ,style = "charles",mav =(self.ma1,self.ma2),volume = False)
 
 
 

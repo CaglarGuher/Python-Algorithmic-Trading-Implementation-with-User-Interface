@@ -35,7 +35,10 @@ class Ui_MainWindow(object):
         self.start_bot.setGeometry(QtCore.QRect(90, 90, 111, 24))
 
 
-        ##edited3##
+        ##edited3########################################################
+
+
+
         self.start_bot.clicked.connect(self.start_testing_loop)
 
         
@@ -202,7 +205,7 @@ class Ui_MainWindow(object):
         self.show_price.setObjectName("show_price")
 
 
-        ###adjusted###
+        ###adjusted##########################################################
 
         self.show_price.clicked.connect(self.give_coin_price)
 
@@ -242,40 +245,45 @@ class Ui_MainWindow(object):
         self.dateEdit.setGeometry(QtCore.QRect(480, 370, 110, 31))
         self.dateEdit.setObjectName("dateEdit")
 
-
+########edited3#########################################################
         self.include_volume = QtWidgets.QCheckBox(self.centralwidget)
         self.include_volume.setGeometry(QtCore.QRect(370, 457, 121, 20))
         self.include_volume.setObjectName("include_volume")
+        
 
 
         self.include_ma = QtWidgets.QCheckBox(self.centralwidget)
         self.include_ma.setGeometry(QtCore.QRect(370, 487, 91, 20))
         self.include_ma.setObjectName("include_ma")
-
+        self.include_ma.clicked.connect(self.reveal_ma)
+        
 
         self.ma1 = QtWidgets.QLabel(self.centralwidget)
         self.ma1.setGeometry(QtCore.QRect(370, 517, 49, 16))
         self.ma1.setObjectName("ma1")
+        self.ma1.setVisible(False)
 
 
         self.ma2 = QtWidgets.QLabel(self.centralwidget)
         self.ma2.setGeometry(QtCore.QRect(370, 547, 49, 16))
         self.ma2.setObjectName("ma2")
+        self.ma2.setVisible(False)
 
 
         self.ma1_input = QtWidgets.QLineEdit(self.centralwidget)
         self.ma1_input.setGeometry(QtCore.QRect(410, 517, 71, 22))
         self.ma1_input.setObjectName("ma1_input")
-
+        self.ma1_input.setVisible(False)
 
         self.ma2_input = QtWidgets.QLineEdit(self.centralwidget)
         self.ma2_input.setGeometry(QtCore.QRect(410, 547, 71, 22))
         self.ma2_input.setObjectName("ma2_input")
+        self.ma2_input.setVisible(False)
 
-        ##edited2##
+        ##edited2#######################################################
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(510, 520, 161, 51))
-        self.pushButton.clicked.connect(self.show_graph)
+        self.pushButton.clicked.connect(self.show_graphs)
 
 
         font = QtGui.QFont()
@@ -307,7 +315,9 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-################################Functions###################################
+################################Functions##########################################
+
+
     def give_coin_price(self):
 
         self.price_display.clear()
@@ -317,42 +327,61 @@ class Ui_MainWindow(object):
 
     
 
-    def show_graph(self):
+    def show_graphs(self):
+
+        if self.include_ma.isChecked():
+
+            
+            result =GI(self.coin_name_input.text())
+            result.hist_data_start_date(str(self.dateEdit.date().toPyDate()))
+            result.set_ma1_value(int(self.ma1_input.text()))
+            result.set_ma2_value(int(self.ma2_input.text()))
+            result.set_price_interval(str(self.comboBox.currentText()))
+            result.set_volume_visualization(self.include_volume.isChecked())
+
+            return result.show_graph(self.include_ma.isChecked())
+
+        else:
+
+
+
+            result =GI(self.coin_name_input.text())
+            result.hist_data_start_date(str(self.dateEdit.date().toPyDate()))
+            result.set_price_interval(str(self.comboBox.currentText()))
+            result.set_volume_visualization(self.include_volume.isChecked())
 
         
-        result =GI(self.coin_name_input.text())
-        result.hist_data_start_date(str(self.dateEdit.date().toPyDate()))
-        result.set_ma1_value(int(self.ma1_input.text()))
-        result.set_ma2_value(int(self.ma2_input.text()))
-        result.set_price_interval(str(self.comboBox.currentText()))
-        print(str(self.comboBox.currentText()))
+            return result.show_graph(self.include_ma.isChecked())
+    def reveal_ma(self):
+        
+        self.include_ma.isChecked()
+        self.ma1.setVisible(self.include_ma.isChecked())
+        self.ma2.setVisible(self.include_ma.isChecked()) 
+        self.ma1_input.setVisible(self.include_ma.isChecked())
+        self.ma2_input.setVisible(self.include_ma.isChecked())
+
+        a = False
 
 
-        return result.show_graph()
-      
+
         
     def start_testing_loop(self):
         acc = Account(10000)
-
         
-
-        acc.calculate_total_balance()
-        
-        
-        self.asset_order_show.clear()
         self.asset_order_show.append(str(acc.Buy_Sell_coin()))
         self.account_display.clear()
-        acc.show_account()
+        
         self.total_balance_display.clear()
+        acc.calculate_total_balance()
         self.total_balance_display.append(str(acc.calculate_total_balance()))
         self.cash_balance_display.clear()
+        acc.show_cash_balance()
         self.cash_balance_display.append(str(acc.show_cash_balance()))
-        acc.calculate_total_balance()
+        
       
             
 
-            
-
+################################Functions#############################################
 
         
 

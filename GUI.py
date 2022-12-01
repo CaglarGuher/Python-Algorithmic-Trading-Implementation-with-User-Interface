@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
 
 
         self.welcome = QtWidgets.QLabel(self.centralwidget)
-        self.welcome.setGeometry(QtCore.QRect(160, 14, 380, 70))
+        self.welcome.setGeometry(QtCore.QRect(160, 14, 400, 70))
 
         font = QtGui.QFont()
         font.setPointSize(18)

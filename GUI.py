@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread
 from Get_coin_info import Get_info as GI
 from Account_Asset_Operation import Account 
-import threading
+
 
 
 class Ui_MainWindow(object):

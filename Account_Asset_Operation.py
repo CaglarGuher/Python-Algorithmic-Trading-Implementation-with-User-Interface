@@ -13,7 +13,6 @@ class Account(Signal_Analysis):
         self.total_balance = total_balance
         self.cash_balance = cash_balance
         self.coin_balance = coin_balance
-        self.bought_coin = bought_coin
 
         self.coin_balance = {
             "COIN_ACCOUNT":

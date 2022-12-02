@@ -13,6 +13,7 @@ class Account(Signal_Analysis):
         self.total_balance = total_balance
         self.cash_balance = cash_balance
         self.coin_balance = coin_balance
+        self.bought_coin = bought_coin
 
         self.coin_balance = {
             "COIN_ACCOUNT":
@@ -30,15 +31,16 @@ class Account(Signal_Analysis):
             {"coin" :"BNBUSDT" ,"amount" : 0,"dolar_eq" : 0 ,"bought_unit_price" : 0},
             ]
 
-}
+}   
 
-    def Buy_coin(self,bought_coin = ""):
+    
+
+
+
+    def Buy_signal_coin(self,bought_coin):
         
         self.bought_coin = bought_coin
-
-        self.bought_coin = Signal_Analysis().suggest_random_coin()
-
-
+       
         for data in self.coin_balance["COIN_ACCOUNT"]:
             
             if data["coin"] == self.bought_coin :
@@ -58,16 +60,24 @@ class Account(Signal_Analysis):
         for data in self.coin_balance["COIN_ACCOUNT"]: 
             self.total_balance = self.total_balance + (data["amount"] * GI(data["coin"]).give_current_price()) 
         self.total_balance = self.total_balance + self.cash_balance
-
-        return self.total_balance              
         
+
+
+
+###############################
+
+    def show_bought_coin(self):
+        return self.bought_coin
+
+
+    def show_total_balance(self):
+
+        return self.total_balance
 
 
     def show_amount_coin_bought(self):
 
          return ((self.cash_balance * 0.1)/GI(self.bought_coin).give_current_price()) , self.bought_coin 
-
-
 
 
     def show_cash_balance(self):

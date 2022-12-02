@@ -7,9 +7,11 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets 
+from PyQt5.QtCore import QThread
 from Get_coin_info import Get_info as GI
 from Account_Asset_Operation import Account 
+import threading
 
 
 class Ui_MainWindow(object):
@@ -62,7 +64,7 @@ class Ui_MainWindow(object):
 
 
         self.account_display = QtWidgets.QTextBrowser(self.centralwidget)
-        self.account_display.setGeometry(QtCore.QRect(10, 230, 256, 221))
+        self.account_display.setGeometry(QtCore.QRect(10, 230, 300, 221))
         self.account_display.setObjectName("account_display")
 
 
@@ -80,7 +82,7 @@ class Ui_MainWindow(object):
 
 
         self.asset_order_show = QtWidgets.QTextBrowser(self.centralwidget)
-        self.asset_order_show.setGeometry(QtCore.QRect(10, 170, 256, 31))
+        self.asset_order_show.setGeometry(QtCore.QRect(10, 170, 300, 31))
         self.asset_order_show.setObjectName("asset_order_show")
 
 
@@ -124,12 +126,12 @@ class Ui_MainWindow(object):
 
 
         self.total_balance_display = QtWidgets.QTextBrowser(self.centralwidget)
-        self.total_balance_display.setGeometry(QtCore.QRect(10, 480, 256, 31))
+        self.total_balance_display.setGeometry(QtCore.QRect(10, 480, 300, 31))
         self.total_balance_display.setObjectName("total_balance_display")
 
 
         self.cash_balance_display = QtWidgets.QTextBrowser(self.centralwidget)
-        self.cash_balance_display.setGeometry(QtCore.QRect(10, 540, 256, 31))
+        self.cash_balance_display.setGeometry(QtCore.QRect(10, 540, 300, 31))
         self.cash_balance_display.setObjectName("cash_balance_display")
 
 

@@ -384,6 +384,13 @@ class Ui_MainWindow(object):
             
 
 ################################Functions#############################################
+class Threading(QThread):
+
+    
+
+
+
+
 
         
 

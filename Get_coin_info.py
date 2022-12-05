@@ -2,14 +2,14 @@ from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager
 import pandas as pd
 import json
 from datetime import datetime
-import Api_code
+import api2
 import time
 import mplfinance as mpf
 
 #################### BINANCE API VARIABLES#####################
-api_key = Api_code.api_key
+api_key = api2.Api_key2
 
-api_secret = Api_code.api_secret
+api_secret = api2.Api_secret2
 
 client = Client(api_key, api_secret)
 ###############################################################

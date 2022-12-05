@@ -1,4 +1,0 @@
-import Threading
-
-class Thread:
-    

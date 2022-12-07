@@ -5,6 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread
 from Get_coin_info import Get_info as GI
 from Account_Asset_Operation import Account 
+from Df_adjusting_process import DataFrameModel
 
 
 
@@ -35,7 +36,7 @@ class Ui_MainWindow(object):
 
 
 
-        self.start_bot.clicked.connect(self.start_testing_loop)
+        self.start_bot.clicked.connect(self.show_account_info)
 
         
         font = QtGui.QFont()
@@ -57,7 +58,7 @@ class Ui_MainWindow(object):
         self.trading_started.setObjectName("trading_started")
 
 
-        self.account_display = QtWidgets.QTextBrowser(self.centralwidget)
+        self.account_display = QtWidgets.QTableView(self.centralwidget)
         self.account_display.setGeometry(QtCore.QRect(10, 230, 300, 221))
         self.account_display.setObjectName("account_display")
 
@@ -356,7 +357,7 @@ class Ui_MainWindow(object):
         self.ma1_input.setVisible(self.include_ma.isChecked())
         self.ma2_input.setVisible(self.include_ma.isChecked())
 
-        a = False
+        
 
 
 
@@ -374,6 +375,26 @@ class Ui_MainWindow(object):
         acc.show_cash_balance()
         self.cash_balance_display.append(str(acc.show_cash_balance()))
         
+    def show_account_info(self):
+
+        self.account = Account(10000)
+
+        self.dftest = self.account.give_coin_balance()
+
+        model = DataFrameModel(self.dftest)
+
+        self.account_display.setModel(model)
+        
+        self.cashh = self.account.show_cash_balance()
+
+        self.cash_balance_display.setText(str(self.cashh))
+
+        self.totall = self.account.show_total_balance()
+
+        self.total_balance_display.setText(str(self.totall))
+
+
+   
       
             
 

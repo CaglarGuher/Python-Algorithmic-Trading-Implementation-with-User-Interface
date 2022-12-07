@@ -1,8 +1,0 @@
-create simple dataframe reader gui with real time visualization(account visualization)
-Use threading and progress tools
-
-
-
-USE apache and create api code for your dataframe
-
-

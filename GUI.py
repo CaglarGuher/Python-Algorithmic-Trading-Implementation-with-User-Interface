@@ -2,14 +2,19 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets 
-from PyQt5.QtCore import QThread
+from PyQt5.QtCore import QThread ,pyqtSignal
 from Get_coin_info import Get_info as GI
 from Account_Asset_Operation import Account 
 from Df_adjusting_process import DataFrameModel
+from Signal_Analysis import Signal_Analysis as SA
+import time
+import pandas as pd
 
 
 
 class Ui_MainWindow(object):
+
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(688, 630)
@@ -36,7 +41,7 @@ class Ui_MainWindow(object):
 
 
 
-        self.start_bot.clicked.connect(self.show_account_info)
+        self.start_bot.clicked.connect(self.start_trading)
 
         
         font = QtGui.QFont()
@@ -46,9 +51,25 @@ class Ui_MainWindow(object):
         self.start_bot.setFont(font)
         self.start_bot.setObjectName("start_bot")
 
+        self.stop_bot = QtWidgets.QPushButton(self.centralwidget)
+
+        self.stop_bot.setGeometry(QtCore.QRect(90, 580, 111, 24))
+
+        self.stop_bot.clicked.connect(self.end_trading)
+        
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setItalic(True)
+
+        self.stop_bot.setFont(font)
+        self.stop_bot.setObjectName("stop_bot")
+
+        
+
 
         self.trading_started = QtWidgets.QLabel(self.centralwidget)
         self.trading_started.setGeometry(QtCore.QRect(90, 120, 121, 16))
+        self.trading_started.setVisible(False)
 
 
         font = QtGui.QFont()
@@ -56,6 +77,32 @@ class Ui_MainWindow(object):
 
         self.trading_started.setFont(font)
         self.trading_started.setObjectName("trading_started")
+
+        self.trading_ended = QtWidgets.QLabel(self.centralwidget)
+        self.trading_ended.setGeometry(QtCore.QRect(210, 585, 121, 16))
+        self.trading_ended.setVisible(False)
+        
+
+
+        font = QtGui.QFont()
+        font.setItalic(True)
+
+        self.trading_ended.setFont(font)
+        self.trading_ended.setObjectName("trading_ended")
+
+  
+
+        
+
+
+
+
+
+
+
+
+
+
 
 
         self.account_display = QtWidgets.QTableView(self.centralwidget)
@@ -309,9 +356,33 @@ class Ui_MainWindow(object):
 
         MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.retranslateUi(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.welcome.setText(_translate("MainWindow", "Welcome to the Trading Bot Testing"))
+        self.start_bot.setText(_translate("MainWindow", "Start Trading"))
+        self.trading_started.setText(_translate("MainWindow", "Trading has started!"))
+        self.Asset_order.setText(_translate("MainWindow", "Asset order :"))
+        self.account.setText(_translate("MainWindow", "Account :"))
+        self.total_balance.setText(_translate("MainWindow", "Total balance :"))
+        self.cash_balance.setText(_translate("MainWindow", "Cash Balance :"))
+        self.manual_coin_info.setText(_translate("MainWindow", "Manual Coin Information "))
+        self.write_coin_name.setText(_translate("MainWindow", "Write a coin name:"))
+        self.show_price.setText(_translate("MainWindow", "Show Price"))
+        self.hist_data_vis.setText(_translate("MainWindow", "Historical Data Visualization"))
+        self.starting_date.setText(_translate("MainWindow", "Starting Date :"))
+        self.include_volume.setText(_translate("MainWindow", "include volume"))
+        self.include_ma.setText(_translate("MainWindow", "include ma"))
+        self.ma1.setText(_translate("MainWindow", "ma1 :"))
+        self.ma2.setText(_translate("MainWindow", "ma2 :"))
+        self.pushButton.setText(_translate("MainWindow", "Generate the Graph"))
+        self.label.setText(_translate("MainWindow", "Price Interval : "))
+        self.stop_bot.setText(_translate("MainWindow", "Stop Trading"))
+        self.trading_ended.setText(_translate("MainWindow", "Trading has ended!"))
 ################################Functions##########################################
 
 
@@ -349,6 +420,7 @@ class Ui_MainWindow(object):
 
         
             return result.show_graph(self.include_ma.isChecked())
+
     def reveal_ma(self):
         
         self.include_ma.isChecked()
@@ -357,41 +429,126 @@ class Ui_MainWindow(object):
         self.ma1_input.setVisible(self.include_ma.isChecked())
         self.ma2_input.setVisible(self.include_ma.isChecked())
 
+
+
+
+    def start_trading(self):
+
+        self.trading_ended.setVisible(False)
+
+        self.worker1 = Coin_Info_Response()
+        self.thread = QThread()
+        self.thread.start()
+        self.worker1.moveToThread(self.thread)
+        self.thread.started.connect(self.worker1.run)
+        self.trading_started.setVisible(True)
+
+    
+        self.worker1.Cash_balance_signal.connect(self.emit_cash_balance)
+        self.worker1.total_balance_signal.connect(self.emit_total_balance)
+        self.worker1.Coin_bought_signal.connect(self.emit_coin_bought)  
+        self.worker1.dataframe_signal.connect(self.emit_and_turn_into_df) 
+
+
+    def end_trading(self):
+
+        self.trading_started.setVisible(False)
+
+        self.worker1.stop()
+        self.thread.terminate()
+
+        self.asset_order_show.clear()
         
+        self.trading_ended.setVisible(True)
 
 
 
         
-    def start_testing_loop(self):
-        acc = Account(10000)
+    def emit_cash_balance(self,value):
+
+        self.cash_balance_display.setText(str(value))
+
+    def emit_total_balance(self,value):
+
+        self.total_balance_display.setText(str(value))
+
+    def emit_coin_bought(self,value):
+
+        self.asset_order_show.setText(str(value))
+
+    def emit_and_turn_into_df(self,value):
+
+        self.datframe = pd.DataFrame(value)
+
+        self.model = DataFrameModel(self.datframe)
+
+
+        self.account_display.setModel(self.model)
+
         
-        self.asset_order_show.append(str(acc.Buy_Sell_coin()))
-        self.account_display.clear()
         
-        self.total_balance_display.clear()
-        acc.calculate_total_balance()
-        self.total_balance_display.append(str(acc.calculate_total_balance()))
-        self.cash_balance_display.clear()
-        acc.show_cash_balance()
-        self.cash_balance_display.append(str(acc.show_cash_balance()))
+
+
         
-    def show_account_info(self):
+
+
+
+     
+
+class Coin_Info_Response(QThread):
+
+    account_display_signal = pyqtSignal(int)
+    total_balance_signal = pyqtSignal(float)
+    Coin_bought_signal = pyqtSignal(tuple)
+    Cash_balance_signal = pyqtSignal(float)
+    dataframe_signal = pyqtSignal(list)
+
+    def run(self):
+
+
+
+
+        self.start_trading = True
+
 
         self.account = Account(10000)
 
-        self.dftest = self.account.give_coin_balance()
+        while self.start_trading:
 
-        model = DataFrameModel(self.dftest)
+            self.account.Buy_signal_coin(SA().suggest_random_coin())
 
-        self.account_display.setModel(model)
+            
+
+            self.account.calculate_total_balance()
+
+            
+
+            self.total_balance_signal.emit(self.account.show_total_balance())
+
+            
+            
+            self.Coin_bought_signal.emit(self.account.show_amt_coin_bought())
+
+            
+
+            self.Cash_balance_signal.emit((self.account.show_cash_balance()))
+
+
+            self.dataframe_signal.emit(self.account.give_coin_balance())
+
+
+            time.sleep(1)
+
+    def stop(self):
+
+        self.start_trading = False
+
         
-        self.cashh = self.account.show_cash_balance()
 
-        self.cash_balance_display.setText(str(self.cashh))
+        
 
-        self.totall = self.account.show_total_balance()
 
-        self.total_balance_display.setText(str(self.totall))
+        
 
 
    
@@ -408,27 +565,7 @@ class Ui_MainWindow(object):
         
 
 
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.welcome.setText(_translate("MainWindow", "Welcome to the Trading Bot Testing"))
-        self.start_bot.setText(_translate("MainWindow", "Start Trading"))
-        self.trading_started.setText(_translate("MainWindow", "Trading has started!"))
-        self.Asset_order.setText(_translate("MainWindow", "Asset order :"))
-        self.account.setText(_translate("MainWindow", "Account :"))
-        self.total_balance.setText(_translate("MainWindow", "Total balance :"))
-        self.cash_balance.setText(_translate("MainWindow", "Cash Balance :"))
-        self.manual_coin_info.setText(_translate("MainWindow", "Manual Coin Information "))
-        self.write_coin_name.setText(_translate("MainWindow", "Write a coin name:"))
-        self.show_price.setText(_translate("MainWindow", "Show Price"))
-        self.hist_data_vis.setText(_translate("MainWindow", "Historical Data Visualization"))
-        self.starting_date.setText(_translate("MainWindow", "Starting Date :"))
-        self.include_volume.setText(_translate("MainWindow", "include volume"))
-        self.include_ma.setText(_translate("MainWindow", "include ma"))
-        self.ma1.setText(_translate("MainWindow", "ma1 :"))
-        self.ma2.setText(_translate("MainWindow", "ma2 :"))
-        self.pushButton.setText(_translate("MainWindow", "Generate the Graph"))
-        self.label.setText(_translate("MainWindow", "Price Interval : "))
+    
 
 if __name__ == "__main__":
     import sys
@@ -438,3 +575,11 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
+
+
+
+
+
+
+

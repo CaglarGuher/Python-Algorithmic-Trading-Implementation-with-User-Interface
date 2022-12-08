@@ -8,13 +8,16 @@ import json
 
 class Account(Signal_Analysis):
 
-    def __init__(self , cash_balance ,coin_balance = {} , total_balance = 0   ):
-        super().__init__(Signal_Analysis)
-        self.total_balance = total_balance
-        self.cash_balance = cash_balance
-        self.coin_balance = coin_balance
+    def __init__(self , cash_balance ,coin_balance = 0  ):
 
-        self.coin_balance = {
+        super().__init__(Signal_Analysis)
+
+        self.coin_balance = coin_balance
+        
+        self.cash_balance = cash_balance
+        
+
+        self.coin_account = {
             "COIN_ACCOUNT":
             [
     
@@ -40,7 +43,7 @@ class Account(Signal_Analysis):
         
         self.bought_coin = bought_coin
        
-        for data in self.coin_balance["COIN_ACCOUNT"]:
+        for data in self.coin_account["COIN_ACCOUNT"]:
             
             if data["coin"] == self.bought_coin :
 
@@ -56,9 +59,10 @@ class Account(Signal_Analysis):
 
     def calculate_total_balance(self):
 
-        for data in self.coin_balance["COIN_ACCOUNT"]: 
-            self.total_balance = self.total_balance + (data["amt"] * GI(data["coin"]).give_current_price()) 
-        self.total_balance = self.total_balance + self.cash_balance
+        for data in self.coin_account["COIN_ACCOUNT"]: 
+            self.coin_balance = self.coin_balance + (data["amt"] * GI(data["coin"]).give_current_price()) 
+        self.total_balance = self.cash_balance + self.coin_balance
+        self.coin_balance  = 0
         
 
 
@@ -71,9 +75,8 @@ class Account(Signal_Analysis):
 
     def give_coin_balance(self):
 
-        self.coin_balance_df = pd.DataFrame(self.coin_balance["COIN_ACCOUNT"])
 
-        return self.coin_balance_df
+        return self.coin_account["COIN_ACCOUNT"]
 
 
     def show_total_balance(self):
@@ -90,9 +93,6 @@ class Account(Signal_Analysis):
         return self.cash_balance
 
 
-
-    def show_account(self):
-        return pd.DataFrame(self.coin_balance["COIN_ACCOUNT"])
 
     
 

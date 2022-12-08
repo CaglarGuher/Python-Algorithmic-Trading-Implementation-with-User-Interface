@@ -99,14 +99,7 @@ class Signal_Analysis():
 
 
     
-##In the end as a test, signal analysis will give signal to a coin if ma10 cross ma20 from below
-## to make that happen in a small period of time,it will check every min
-            
 
-
-##testing
-
-        
 
         
 

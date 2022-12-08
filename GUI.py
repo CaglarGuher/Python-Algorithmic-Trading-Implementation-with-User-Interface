@@ -618,7 +618,7 @@ class Coin_Info_Response(QThread):
             self.Coin_bought_signal.emit(self.account.show_amt_coin_bought())
             self.Cash_balance_signal.emit((self.account.show_cash_balance()))
             self.dataframe_signal.emit(self.account.give_coin_balance())
-            time.sleep(1)
+            time.sleep(0.1)
 
 
 

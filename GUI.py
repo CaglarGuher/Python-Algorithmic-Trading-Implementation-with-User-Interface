@@ -614,26 +614,8 @@ class Coin_Info_Response(QThread):
 ###QTHREAD CLASS##############################
         
 
-        
 
-
-        
-
-
-   
-      
-            
-
-
-
-
-
-
-
-        
-
-
-    
+####SYS####    
 
 if __name__ == "__main__":
     import sys
@@ -644,6 +626,7 @@ if __name__ == "__main__":
     MainWindow.show()
     sys.exit(app.exec_())
 
+####SYS####    
 
 
 

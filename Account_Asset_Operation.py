@@ -21,16 +21,16 @@ class Account(Signal_Analysis):
             "COIN_ACCOUNT":
             [
     
-            {"coin" :"BTCUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
-            {"coin" :"ETHUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
-            {"coin" :"XRPUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
-            {"coin" :"ADAUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
-            {"coin" :"DOGEUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
-            {"coin" :"MATICUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
-            {"coin" :"DOTUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
-            {"coin" :"DAIUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
-            {"coin" :"SHIBUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
-            {"coin" :"BNBUSDT" ,"amt" : 0,"$" : 0 ,"$/unit" : 0},
+            {"coin" :"BTCUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
+            {"coin" :"ETHUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
+            {"coin" :"XRPUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
+            {"coin" :"ADAUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
+            {"coin" :"DOGEUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
+            {"coin" :"MATICUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
+            {"coin" :"DOTUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
+            {"coin" :"DAIUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
+            {"coin" :"SHIBUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
+            {"coin" :"BNBUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
             ]
 
 }   
@@ -47,11 +47,11 @@ class Account(Signal_Analysis):
             
             if data["coin"] == self.bought_coin :
 
-                if data["amt"] == 0:
+                if data["coin_amt"] == 0:
 
-                    data["amt"] = data["amt"] +  (self.cash_balance * 0.1)/GI(self.bought_coin).give_current_price()
-                    data["$"] = self.cash_balance * 0.1
-                    data["$/unit"] = GI(self.bought_coin).give_current_price()
+                    data["coin_amt"] = data["coin_amt"] +  (self.cash_balance * 0.1)/GI(self.bought_coin).give_current_price()
+                    data["coin_$"] = self.cash_balance * 0.1
+                    data["coin$/unit"] = GI(self.bought_coin).give_current_price()
 
                     self.cash_balance = self.cash_balance -  self.cash_balance * 0.1
 
@@ -60,7 +60,7 @@ class Account(Signal_Analysis):
     def calculate_total_balance(self):
 
         for data in self.coin_account["COIN_ACCOUNT"]: 
-            self.coin_balance = self.coin_balance + (data["amt"] * GI(data["coin"]).give_current_price()) 
+            self.coin_balance = self.coin_balance + (data["coin_amt"] * GI(data["coin"]).give_current_price()) 
         self.total_balance = self.cash_balance + self.coin_balance
         self.coin_balance  = 0
         

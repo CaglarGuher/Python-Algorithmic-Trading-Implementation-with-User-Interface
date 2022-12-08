@@ -2,7 +2,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets 
-from PyQt5.QtCore import QThread ,pyqtSignal
+from PyQt5.QtCore import QThread ,  pyqtSignal
 from Get_coin_info import Get_info as GI
 from Account_Asset_Operation import Account 
 from Df_adjusting_process import DataFrameModel
@@ -11,16 +11,25 @@ import time
 import pandas as pd
 
 
-
+##############MAIN GUI CLASS##################
 class Ui_MainWindow(object):
 
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(688, 630)
+
+
+###MAIN FRAME##
+    
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
+###MAIN FRAME##
+
+
+
+####WELCOME TEXT######
 
         self.welcome = QtWidgets.QLabel(self.centralwidget)
         self.welcome.setGeometry(QtCore.QRect(160, 14, 400, 70))
@@ -32,12 +41,17 @@ class Ui_MainWindow(object):
 
         self.welcome.setFont(font)
         self.welcome.setObjectName("welcome")
+
+####WELCOME TEXT######
+
+
+####STARTING BOT BUTTON######
         
         self.start_bot = QtWidgets.QPushButton(self.centralwidget)
         self.start_bot.setGeometry(QtCore.QRect(90, 90, 111, 24))
 
 
-        ##edited3########################################################
+        
 
 
 
@@ -50,6 +64,12 @@ class Ui_MainWindow(object):
 
         self.start_bot.setFont(font)
         self.start_bot.setObjectName("start_bot")
+
+
+####STARTING BOT BUTTON######
+
+
+####STOP BOT BUTTON######
 
         self.stop_bot = QtWidgets.QPushButton(self.centralwidget)
 
@@ -64,7 +84,10 @@ class Ui_MainWindow(object):
         self.stop_bot.setFont(font)
         self.stop_bot.setObjectName("stop_bot")
 
-        
+####STOP BOT BUTTON######
+
+
+####TRADING STARTED TEXT ######
 
 
         self.trading_started = QtWidgets.QLabel(self.centralwidget)
@@ -78,6 +101,11 @@ class Ui_MainWindow(object):
         self.trading_started.setFont(font)
         self.trading_started.setObjectName("trading_started")
 
+####TRADING STARTED TEXT ######
+
+
+####TRADING ENDED TEXT ######
+
         self.trading_ended = QtWidgets.QLabel(self.centralwidget)
         self.trading_ended.setGeometry(QtCore.QRect(210, 585, 121, 16))
         self.trading_ended.setVisible(False)
@@ -90,42 +118,46 @@ class Ui_MainWindow(object):
         self.trading_ended.setFont(font)
         self.trading_ended.setObjectName("trading_ended")
 
+####TRADING ENDED TEXT ######
   
 
-        
-
-
-
-
-
-
-
-
-
-
-
+####ACCOUNT DISPLAY TABLE
 
         self.account_display = QtWidgets.QTableView(self.centralwidget)
         self.account_display.setGeometry(QtCore.QRect(10, 230, 300, 221))
         self.account_display.setObjectName("account_display")
 
 
+####ACCOUNT DISPLAY TABLE
+
+
+###ASSET ORDER TEXT LABEL#######
+
         self.Asset_order = QtWidgets.QLabel(self.centralwidget)
         self.Asset_order.setGeometry(QtCore.QRect(10, 150, 71, 16))
-
 
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setItalic(True)
 
-
         self.Asset_order.setFont(font)
         self.Asset_order.setObjectName("Asset_order")
 
+###ASSET ORDER TEXT LABEL#######
+
+
+
+
+###ASSET ORDER DISPLAY LABEL#######
 
         self.asset_order_show = QtWidgets.QTextBrowser(self.centralwidget)
         self.asset_order_show.setGeometry(QtCore.QRect(10, 170, 300, 31))
         self.asset_order_show.setObjectName("asset_order_show")
+
+###ASSET ORDER DISPLAY LABEL#######
+
+
+###ACCOUNT TEXT LABEL###
 
 
         self.account = QtWidgets.QLabel(self.centralwidget)
@@ -140,77 +172,116 @@ class Ui_MainWindow(object):
         self.account.setFont(font)
         self.account.setObjectName("account")
 
+###ACCOUNT TEXT LABEL###
+
+
+
+###TOTAL BALANCE TEXT LABEL####
 
         self.total_balance = QtWidgets.QLabel(self.centralwidget)
         self.total_balance.setGeometry(QtCore.QRect(10, 460, 81, 16))
 
-
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setItalic(True)
-
 
         self.total_balance.setFont(font)
         self.total_balance.setObjectName("total_balance")
 
+###TOTAL BALANCE TEXT LABEL####
+
+
+
+####CASH BALANCE TEXT LABEL####
 
         self.cash_balance = QtWidgets.QLabel(self.centralwidget)
         self.cash_balance.setGeometry(QtCore.QRect(10, 520, 81, 16))
-
 
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setItalic(True)
 
-
         self.cash_balance.setFont(font)
         self.cash_balance.setObjectName("cash_balance")
 
+####CASH BALANCE TEXT LABEL####
+
+
+
+####TOTAL BALANCE DISPLAY####
 
         self.total_balance_display = QtWidgets.QTextBrowser(self.centralwidget)
         self.total_balance_display.setGeometry(QtCore.QRect(10, 480, 300, 31))
         self.total_balance_display.setObjectName("total_balance_display")
 
+####TOTAL BALANCE DISPLAY####
+
+
+
+####CASH BALANCE DISPLAY####
 
         self.cash_balance_display = QtWidgets.QTextBrowser(self.centralwidget)
         self.cash_balance_display.setGeometry(QtCore.QRect(10, 540, 300, 31))
         self.cash_balance_display.setObjectName("cash_balance_display")
 
+####CASH BALANCE DISPLAY####
 
+
+
+###MANUAL COIN INFO TEXT LABEL###
         self.manual_coin_info = QtWidgets.QLabel(self.centralwidget)
         self.manual_coin_info.setGeometry(QtCore.QRect(390, 90, 211, 31))
-
 
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
 
-
         self.manual_coin_info.setFont(font)
         self.manual_coin_info.setObjectName("manual_coin_info")
 
+###MANUAL COIN INFO TEXT LABEL###
+
+
+
+####COIN NAME INPUT####
 
         self.coin_name_input = QtWidgets.QLineEdit(self.centralwidget)
         self.coin_name_input.setGeometry(QtCore.QRect(430, 190, 121, 22))
         self.coin_name_input.setObjectName("coin_name_input")
 
+####COIN NAME INPUT####
+
+
+
+###COIN NAME TEXT LABEL###
 
         self.write_coin_name = QtWidgets.QLabel(self.centralwidget)
         self.write_coin_name.setGeometry(QtCore.QRect(440, 160, 111, 16))
-
-
 
         font = QtGui.QFont()
         font.setPointSize(9)
         font.setItalic(True)
 
-
         self.write_coin_name.setFont(font)
         self.write_coin_name.setObjectName("write_coin_name")
 
+###COIN NAME TEXT LABEL###
+
+
+
+###SHOW PRICE BUTTON###
 
         self.show_price = QtWidgets.QPushButton(self.centralwidget)
         self.show_price.setGeometry(QtCore.QRect(430, 220, 121, 24))
+        self.show_price.setFont(font)
+        self.show_price.setObjectName("show_price")
+
+###SHOW PRICE BUTTON###
+
+
+
+
+###INTERVAL SELECTION COMBOBOX####
 
         self.comboBox = QtWidgets.QComboBox(self.centralwidget)
         self.comboBox.setGeometry(QtCore.QRect(480, 410, 110, 31))
@@ -229,137 +300,170 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("1w")
         self.comboBox.addItem("1m")
 
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        font.setItalic(True)
+###INTERVAL SELECTION COMBOBOX####
 
+        
 
+###PRICE INTERVAL TEXT LABEL###
 
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(368, 410, 100, 30))
         self.label.setFont(font)
 
-
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setItalic(True)
 
-
-        self.show_price.setFont(font)
-        self.show_price.setObjectName("show_price")
+###PRICE INTERVAL TEXT LABEL###
 
 
-        ###adjusted##########################################################
+
+
+        
+#############################################################
 
         self.show_price.clicked.connect(self.give_coin_price)
 
+###PRICE DISPLAY####
 
         self.price_display = QtWidgets.QTextBrowser(self.centralwidget)
         self.price_display.setGeometry(QtCore.QRect(360, 260, 256, 31))
         self.price_display.setObjectName("price_display")
-        
 
+###PRICE DISPLAY####
+
+
+### HISTORICAL DATA TEXT LABEL###
+        
         self.hist_data_vis = QtWidgets.QLabel(self.centralwidget)
         self.hist_data_vis.setGeometry(QtCore.QRect(370, 340, 241, 16))
-
         
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
 
-
         self.hist_data_vis.setFont(font)
         self.hist_data_vis.setObjectName("hist_data_vis")
 
+### HISTORICAL DATA TEXT LABEL###
+
+
+
+###STARTING DATE TEXT LABEL###
 
         self.starting_date = QtWidgets.QLabel(self.centralwidget)
         self.starting_date.setGeometry(QtCore.QRect(370, 380, 101, 16))
-
 
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setItalic(True)
 
-
         self.starting_date.setFont(font)
         self.starting_date.setObjectName("starting_date")
 
+###STARTING DATE TEXT LABEL###
+
+
+
+
+####DATE INPUT ####
 
         self.dateEdit = QtWidgets.QDateEdit(self.centralwidget)
         self.dateEdit.setGeometry(QtCore.QRect(480, 370, 110, 31))
         self.dateEdit.setObjectName("dateEdit")
 
-########edited3#########################################################
+####DATE INPUT ####
+
+
+
+###INCLUDE VOLUME CHECKBOX###
+
         self.include_volume = QtWidgets.QCheckBox(self.centralwidget)
         self.include_volume.setGeometry(QtCore.QRect(370, 457, 121, 20))
         self.include_volume.setObjectName("include_volume")
         
+###INCLUDE VOLUME CHECKBOX###
 
+
+
+###INCLUDE MA CHECKBOX###
 
         self.include_ma = QtWidgets.QCheckBox(self.centralwidget)
         self.include_ma.setGeometry(QtCore.QRect(370, 487, 91, 20))
         self.include_ma.setObjectName("include_ma")
         self.include_ma.clicked.connect(self.reveal_ma)
         
+###INCLUDE MA CHECKBOX###
+
+
+
+###MA1 TEXT LABEL
 
         self.ma1 = QtWidgets.QLabel(self.centralwidget)
         self.ma1.setGeometry(QtCore.QRect(370, 517, 49, 16))
         self.ma1.setObjectName("ma1")
         self.ma1.setVisible(False)
 
+###MA1 TEXT LABEL
+
+
+
+###MA2 TEXT LABEL###
 
         self.ma2 = QtWidgets.QLabel(self.centralwidget)
         self.ma2.setGeometry(QtCore.QRect(370, 547, 49, 16))
         self.ma2.setObjectName("ma2")
         self.ma2.setVisible(False)
 
+###MA2 TEXT LABEL###
+
+
+
+###MA1 INPUT ###
 
         self.ma1_input = QtWidgets.QLineEdit(self.centralwidget)
         self.ma1_input.setGeometry(QtCore.QRect(410, 517, 71, 22))
         self.ma1_input.setObjectName("ma1_input")
         self.ma1_input.setVisible(False)
 
+###MA1 INPUT ###
+
+
+
+###MA2 INPUT###
+
         self.ma2_input = QtWidgets.QLineEdit(self.centralwidget)
         self.ma2_input.setGeometry(QtCore.QRect(410, 547, 71, 22))
         self.ma2_input.setObjectName("ma2_input")
         self.ma2_input.setVisible(False)
 
-        ##edited2#######################################################
+###MA2 INPUT
+
+
+###SHOW GRAPH BUTTON###
+
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(510, 520, 161, 51))
         self.pushButton.clicked.connect(self.show_graphs)
-
 
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setItalic(True)
 
-
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
 
+###SHOW GRAPH BUTTON###
+
+
+
+
+
+##### MENU ADJUSTING SETTINGS ####
 
         MainWindow.setCentralWidget(self.centralwidget)
-
-
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 688, 22))
-        self.menubar.setObjectName("menubar")
-
-
-        MainWindow.setMenuBar(self.menubar)
-
-
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-
-
-        MainWindow.setStatusBar(self.statusbar)
-
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
         self.retranslateUi(MainWindow)
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -383,46 +487,39 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Price Interval : "))
         self.stop_bot.setText(_translate("MainWindow", "Stop Trading"))
         self.trading_ended.setText(_translate("MainWindow", "Trading has ended!"))
-################################Functions##########################################
 
+##### MENU ADJUSTING SETTINGS ####
+
+
+
+###FUNCTIONS###
 
     def give_coin_price(self):
 
         self.price_display.clear()
-
         self.price_display.append(str(GI(self.coin_name_input.text()).give_current_price()))
 
 
     
-
     def show_graphs(self):
-
         if self.include_ma.isChecked():
-
-            
             result =GI(self.coin_name_input.text())
             result.hist_data_start_date(str(self.dateEdit.date().toPyDate()))
             result.set_ma1_value(int(self.ma1_input.text()))
             result.set_ma2_value(int(self.ma2_input.text()))
             result.set_price_interval(str(self.comboBox.currentText()))
             result.set_volume_visualization(self.include_volume.isChecked())
-
             return result.show_graph(self.include_ma.isChecked())
-
         else:
-
-
-
             result =GI(self.coin_name_input.text())
             result.hist_data_start_date(str(self.dateEdit.date().toPyDate()))
             result.set_price_interval(str(self.comboBox.currentText()))
             result.set_volume_visualization(self.include_volume.isChecked())
-
-        
             return result.show_graph(self.include_ma.isChecked())
 
+
+
     def reveal_ma(self):
-        
         self.include_ma.isChecked()
         self.ma1.setVisible(self.include_ma.isChecked())
         self.ma2.setVisible(self.include_ma.isChecked()) 
@@ -431,69 +528,61 @@ class Ui_MainWindow(object):
 
 
 
-
     def start_trading(self):
-
         self.trading_ended.setVisible(False)
-
         self.worker1 = Coin_Info_Response()
         self.thread = QThread()
         self.thread.start()
         self.worker1.moveToThread(self.thread)
         self.thread.started.connect(self.worker1.run)
         self.trading_started.setVisible(True)
-
-    
         self.worker1.Cash_balance_signal.connect(self.emit_cash_balance)
         self.worker1.total_balance_signal.connect(self.emit_total_balance)
         self.worker1.Coin_bought_signal.connect(self.emit_coin_bought)  
         self.worker1.dataframe_signal.connect(self.emit_and_turn_into_df) 
 
 
+
     def end_trading(self):
-
         self.trading_started.setVisible(False)
-
         self.worker1.stop()
         self.thread.terminate()
-
         self.asset_order_show.clear()
-        
         self.trading_ended.setVisible(True)
 
 
 
         
     def emit_cash_balance(self,value):
-
         self.cash_balance_display.setText(str(value))
 
-    def emit_total_balance(self,value):
 
+
+    def emit_total_balance(self,value):
         self.total_balance_display.setText(str(value))
 
-    def emit_coin_bought(self,value):
 
+
+    def emit_coin_bought(self,value):
         self.asset_order_show.setText(str(value))
 
+
+
     def emit_and_turn_into_df(self,value):
-
         self.datframe = pd.DataFrame(value)
-
         self.model = DataFrameModel(self.datframe)
-
-
         self.account_display.setModel(self.model)
 
-        
-        
-
-
-        
+###FUNCTIONS###
 
 
 
-     
+##############MAIN GUI CLASS##################
+
+
+
+
+###QTHREAD CLASS##############################
 
 class Coin_Info_Response(QThread):
 
@@ -503,46 +592,26 @@ class Coin_Info_Response(QThread):
     Cash_balance_signal = pyqtSignal(float)
     dataframe_signal = pyqtSignal(list)
 
+
+
     def run(self):
-
-
-
-
         self.start_trading = True
-
-
         self.account = Account(10000)
-
         while self.start_trading:
-
             self.account.Buy_signal_coin(SA().suggest_random_coin())
-
-            
-
             self.account.calculate_total_balance()
-
-            
-
             self.total_balance_signal.emit(self.account.show_total_balance())
-
-            
-            
             self.Coin_bought_signal.emit(self.account.show_amt_coin_bought())
-
-            
-
             self.Cash_balance_signal.emit((self.account.show_cash_balance()))
-
-
             self.dataframe_signal.emit(self.account.give_coin_balance())
-
-
             time.sleep(1)
 
-    def stop(self):
 
+
+    def stop(self):
         self.start_trading = False
 
+###QTHREAD CLASS##############################
         
 
         
@@ -555,8 +624,7 @@ class Coin_Info_Response(QThread):
       
             
 
-################################Functions#############################################
-    
+
 
 
 

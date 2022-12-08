@@ -55,7 +55,6 @@ class Ui_MainWindow(object):
 
 
 
-        self.start_bot.clicked.connect(self.start_trading)
 
         
         font = QtGui.QFont()
@@ -75,7 +74,7 @@ class Ui_MainWindow(object):
 
         self.stop_bot.setGeometry(QtCore.QRect(90, 580, 111, 24))
 
-        self.stop_bot.clicked.connect(self.end_trading)
+        
         
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -322,7 +321,7 @@ class Ui_MainWindow(object):
         
 #############################################################
 
-        self.show_price.clicked.connect(self.give_coin_price)
+        
 
 ###PRICE DISPLAY####
 
@@ -391,7 +390,7 @@ class Ui_MainWindow(object):
         self.include_ma = QtWidgets.QCheckBox(self.centralwidget)
         self.include_ma.setGeometry(QtCore.QRect(370, 487, 91, 20))
         self.include_ma.setObjectName("include_ma")
-        self.include_ma.clicked.connect(self.reveal_ma)
+        
         
 ###INCLUDE MA CHECKBOX###
 
@@ -444,7 +443,7 @@ class Ui_MainWindow(object):
 
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(510, 520, 161, 51))
-        self.pushButton.clicked.connect(self.show_graphs)
+        
 
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -489,6 +488,18 @@ class Ui_MainWindow(object):
         self.trading_ended.setText(_translate("MainWindow", "Trading has ended!"))
 
 ##### MENU ADJUSTING SETTINGS ####
+
+
+
+###BUTTON CONNECTIONS###
+
+        self.start_bot.clicked.connect(self.start_trading)
+        self.stop_bot.clicked.connect(self.end_trading)
+        self.show_price.clicked.connect(self.give_coin_price)
+        self.include_ma.clicked.connect(self.reveal_ma)
+        self.pushButton.clicked.connect(self.show_graphs)
+
+###BUTTON CONNECTIONS###
 
 
 
@@ -573,10 +584,13 @@ class Ui_MainWindow(object):
         self.model = DataFrameModel(self.datframe)
         self.account_display.setModel(self.model)
 
+
+
 ###FUNCTIONS###
 
 
 
+       
 ##############MAIN GUI CLASS##################
 
 

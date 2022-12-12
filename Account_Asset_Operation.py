@@ -3,74 +3,60 @@ from Signal_Analysis import Signal_Analysis
 from Get_coin_info import Get_info as GI
 import time
 import json
-
+from api_access import client
+from available_coin_prices import COINS
 
 
 class Account(Signal_Analysis):
 
-    def __init__(self , cash_balance ,coin_balance = 0  ):
+    def __init__(self,cash_balance = 0 , total_balance = 0):
 
         super().__init__(Signal_Analysis)
 
-        self.coin_balance = coin_balance
-        
         self.cash_balance = cash_balance
-        
+
+        self.total_balance = total_balance
+
+        self.info = client.get_account()
+
 
         self.coin_account = {
-            "COIN_ACCOUNT":
-            [
-    
-            {"coin" :"BTCUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            {"coin" :"ETHUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            {"coin" :"XRPUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            {"coin" :"ADAUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            {"coin" :"DOGEUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            {"coin" :"MATICUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            {"coin" :"DOTUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            {"coin" :"DAIUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            {"coin" :"SHIBUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            {"coin" :"BNBUSDT" ,"coin_amt" : 0,"coin_$" : 0 ,"coin$/unit" : 0,},
-            ]
+                "COIN_ACCOUNT":
+                [{"coin" :"BTCUSDT" ,"coin_amt" : 0,}]
+                } 
+                  
+        self. a = []
 
-}   
+        for i in range(0,len(COINS)):
 
-    
+            RES = COINS[i].replace("USDT","")
+            self.a.append(RES)
 
+
+
+
+       
+        for i in range(0,len(self.info["balances"])):
+
+            if self.info["balances"][i]["asset"] in self.a:
+
+                if float(self.info["balances"][i]["free"]) > 0:
+                    self.coin_account["COIN_ACCOUNT"].append({"coin" :(self.info["balances"][i]["asset"]+"USDT") ,"coin_amt" : float(self.info["balances"][i]["free"])})
+            
+        
 
 
     def Buy_signal_coin(self,bought_coin):
         
-        self.bought_coin = bought_coin
-       
-        for data in self.coin_account["COIN_ACCOUNT"]:
-            
-            if data["coin"] == self.bought_coin :
-
-                if data["coin_amt"] == 0:
-
-                    data["coin_amt"] = data["coin_amt"] +  (self.cash_balance * 0.1)/GI(self.bought_coin).give_current_price()
-                    data["coin_$"] = self.cash_balance * 0.1
-                    data["coin$/unit"] = GI(self.bought_coin).give_current_price()
-
-                    self.cash_balance = self.cash_balance -  self.cash_balance * 0.1
-
-
-
-    def calculate_total_balance(self):
-
-        for data in self.coin_account["COIN_ACCOUNT"]: 
-            self.coin_balance = self.coin_balance + (data["coin_amt"] * GI(data["coin"]).give_current_price()) 
-        self.total_balance = self.cash_balance + self.coin_balance
-        self.coin_balance  = 0
-        
+        pass
+             
 
 
 
 ###############################
 
     def show_bought_coin(self):
-        return self.bought_coin
+        pass
 
 
     def give_coin_balance(self):
@@ -81,20 +67,29 @@ class Account(Signal_Analysis):
 
     def show_total_balance(self):
 
-        return self.total_balance
+        self.total_balance = 0
 
+        for data in self.coin_account["COIN_ACCOUNT"]:
+            self.total_balance = self.total_balance + float(data["coin_amt"])*(GI((data["coin"])).give_current_price())
+
+        self.total_balance = self.total_balance + self.cash_balance
+
+        return self.total_balance
 
     def show_amt_coin_bought(self):
 
-         return ((self.cash_balance * 0.1)/GI(self.bought_coin).give_current_price()) , self.bought_coin 
+         pass
 
 
     def show_cash_balance(self):
+        for i in range (0,len(self.info["balances"])):
+
+            if self.info["balances"][i]["asset"] == "USDT":
+                self.cash_balance = float(self.info["balances"][i]["free"])
         return self.cash_balance
 
 
 
-    
 
  
         

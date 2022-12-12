@@ -1,6 +1,4 @@
 
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets 
 from PyQt5.QtCore import QThread ,  pyqtSignal
 from Get_coin_info import Get_info as GI
@@ -11,8 +9,59 @@ import time
 import pandas as pd
 
 
+
+class ENTRY(object):
+    def setupUi(self, Widget):
+        Widget.setObjectName("Widget")
+        Widget.resize(684, 205)
+        self.lineEdit = QtWidgets.QLineEdit(Widget)
+        self.lineEdit.setGeometry(QtCore.QRect(140, 65, 471, 22))
+        self.lineEdit.setObjectName("lineEdit")
+        self.lineEdit_2 = QtWidgets.QLineEdit(Widget)
+        self.lineEdit_2.setGeometry(QtCore.QRect(140, 115, 471, 22))
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.label = QtWidgets.QLabel(Widget)
+        self.label.setGeometry(QtCore.QRect(40, 70, 111, 16))
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(Widget)
+        self.label_2.setGeometry(QtCore.QRect(40, 120, 111, 16))
+        self.label_2.setObjectName("label_2")
+        self.pushButton = QtWidgets.QPushButton(Widget)
+        self.pushButton.setGeometry(QtCore.QRect(240, 160, 211, 24))
+        self.pushButton.setObjectName("pushButton")
+        self.label_3 = QtWidgets.QLabel(Widget)
+        self.label_3.setGeometry(QtCore.QRect(180, 20, 391, 20))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+
+        self.retranslateUi(Widget)
+        QtCore.QMetaObject.connectSlotsByName(Widget)
+
+    def retranslateUi(self, Widget):
+        _translate = QtCore.QCoreApplication.translate
+        Widget.setWindowTitle(_translate("Widget", "Widget"))
+        self.label.setText(_translate("Widget", "Your Api KEY:"))
+        self.label_2.setText(_translate("Widget", "Your Api SECRET:"))
+        self.pushButton.setText(_translate("Widget", "SUBMIT "))
+        self.label_3.setText(_translate("Widget", "REQUIRED INFORMATIONS FOR THE ALGORTIHM"))
+        self.pushButton.clicked.connect(self.go_to_main)
+
+    def go_to_main(self):
+
+        self.MainWindow1 = QtWidgets.QMainWindow()
+        self.uu1 = MAIN()
+        self.uu1.setupUi(self.MainWindow1)
+        self.MainWindow1.show()
+        Widget.close()
+        
+
+
+
+
 ##############MAIN GUI CLASS##################
-class Ui_MainWindow(object):
+class MAIN(object):
 
 
     def setupUi(self, MainWindow):
@@ -178,7 +227,7 @@ class Ui_MainWindow(object):
 ###TOTAL BALANCE TEXT LABEL####
 
         self.total_balance = QtWidgets.QLabel(self.centralwidget)
-        self.total_balance.setGeometry(QtCore.QRect(10, 460, 81, 16))
+        self.total_balance.setGeometry(QtCore.QRect(10, 460, 132, 16))
 
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -456,6 +505,15 @@ class Ui_MainWindow(object):
 
 
 
+###BUTTON CONNECTIONS###
+
+        self.start_bot.clicked.connect(self.start_trading)
+        self.stop_bot.clicked.connect(self.end_trading)
+        self.show_price.clicked.connect(self.give_coin_price)
+        self.include_ma.clicked.connect(self.reveal_ma)
+        self.pushButton.clicked.connect(self.show_graphs)
+
+###BUTTON CONNECTIONS###
 
 
 ##### MENU ADJUSTING SETTINGS ####
@@ -471,7 +529,7 @@ class Ui_MainWindow(object):
         self.trading_started.setText(_translate("MainWindow", "Trading has started!"))
         self.Asset_order.setText(_translate("MainWindow", "Asset order :"))
         self.account.setText(_translate("MainWindow", "Account :"))
-        self.total_balance.setText(_translate("MainWindow", "Total balance :"))
+        self.total_balance.setText(_translate("MainWindow", "Total asset balance :"))
         self.cash_balance.setText(_translate("MainWindow", "Cash Balance :"))
         self.manual_coin_info.setText(_translate("MainWindow", "Manual Coin Information "))
         self.write_coin_name.setText(_translate("MainWindow", "Write a coin name:"))
@@ -491,15 +549,7 @@ class Ui_MainWindow(object):
 
 
 
-###BUTTON CONNECTIONS###
 
-        self.start_bot.clicked.connect(self.start_trading)
-        self.stop_bot.clicked.connect(self.end_trading)
-        self.show_price.clicked.connect(self.give_coin_price)
-        self.include_ma.clicked.connect(self.reveal_ma)
-        self.pushButton.clicked.connect(self.show_graphs)
-
-###BUTTON CONNECTIONS###
 
 
 
@@ -600,9 +650,9 @@ class Ui_MainWindow(object):
 
 class Coin_Info_Response(QThread):
 
-    account_display_signal = pyqtSignal(int)
+    
     total_balance_signal = pyqtSignal(float)
-    Coin_bought_signal = pyqtSignal(tuple)
+    Coin_bought_signal = pyqtSignal(str)
     Cash_balance_signal = pyqtSignal(float)
     dataframe_signal = pyqtSignal(list)
 
@@ -610,13 +660,12 @@ class Coin_Info_Response(QThread):
 
     def run(self):
         self.start_trading = True
-        self.account = Account(10000)
+        
         while self.start_trading:
-            self.account.Buy_signal_coin(SA().suggest_random_coin())
-            self.account.calculate_total_balance()
+            self.account = Account()
             self.total_balance_signal.emit(self.account.show_total_balance())
-            self.Coin_bought_signal.emit(self.account.show_amt_coin_bought())
-            self.Cash_balance_signal.emit((self.account.show_cash_balance()))
+            self.Coin_bought_signal.emit("testing, no coin will be bought")
+            self.Cash_balance_signal.emit(self.account.show_cash_balance())
             self.dataframe_signal.emit(self.account.give_coin_balance())
             time.sleep(0.1)
 
@@ -631,11 +680,21 @@ class Coin_Info_Response(QThread):
 
 ####SYS####    
 
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Widget = QtWidgets.QWidget()
+    ui = ENTRY()
+    ui.setupUi(Widget)
+    Widget.show()
+    sys.exit(app.exec_())
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
+    ui = MAIN()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

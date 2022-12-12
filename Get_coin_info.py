@@ -1,20 +1,12 @@
-from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager
 import pandas as pd
 import json
 from datetime import datetime
 import api2
 import time
 import mplfinance as mpf
+from api_access import client , Client
 
-#################### BINANCE API VARIABLES#####################
-api_key = api2.Api_key2
-
-api_secret = api2.Api_secret2
-
-client = Client(api_key, api_secret)
-###############################################################
-
-class Get_info:
+class Get_info():
 
     def __init__(self , coinname ,  startdate ="01.01.2021" , 
     interval = "4h" ,  dataframe = [], show_volume = False,show_ma = False, ma1 = 0 , ma2 = 0):
@@ -67,6 +59,8 @@ class Get_info:
     def give_current_price(self ):
 
         return float(client.get_margin_price_index(symbol=self.coinname)["price"])
+
+       
 
 
     
@@ -124,6 +118,7 @@ class Get_info:
 
 
             return mpf.plot(self.dataframe.set_index("CloseTime"),type = "line" ,style = "charles",volume = self.show_volume)
+
 
 
 

@@ -4,7 +4,7 @@ import pandas as pd
 import mplfinance as mpf
 import random
 import time
-
+from available_coin_prices import COINS
 
 '''
 It will be a simple signal analysis
@@ -72,7 +72,7 @@ class Signal_Analysis():
     
     def suggest_random_coin(self):
 
-        coin_names = ["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","ADAUSDT","DOGEUSDT","MATICUSDT","DOTUSDT","DAIUSDT","SHIBUSDT"]
+        coin_names = COINS
 
         self.suggested_coin = coin_names[random.randint(0,len(coin_names)-1)]
 

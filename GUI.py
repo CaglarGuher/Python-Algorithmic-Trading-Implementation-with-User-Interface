@@ -32,7 +32,7 @@ class ENTRY(object):
         self.label_3 = QtWidgets.QLabel(Widget)
         self.label_3.setGeometry(QtCore.QRect(180, 20, 391, 20))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPixelSize(15)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
 
@@ -84,7 +84,7 @@ class MAIN(object):
         self.welcome.setGeometry(QtCore.QRect(160, 14, 400, 70))
 
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPixelSize(18)
         font.setItalic(True)
 
 
@@ -107,7 +107,7 @@ class MAIN(object):
 
         
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPixelSize(13)
         font.setItalic(True)
 
         self.start_bot.setFont(font)
@@ -126,7 +126,7 @@ class MAIN(object):
         
         
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPixelSize(13)
         font.setItalic(True)
 
         self.stop_bot.setFont(font)
@@ -185,7 +185,7 @@ class MAIN(object):
         self.Asset_order.setGeometry(QtCore.QRect(10, 150, 71, 16))
 
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPixelSize(13)
         font.setItalic(True)
 
         self.Asset_order.setFont(font)
@@ -213,7 +213,7 @@ class MAIN(object):
 
 
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPixelSize(13)
         font.setItalic(True)
 
 
@@ -230,7 +230,7 @@ class MAIN(object):
         self.total_balance.setGeometry(QtCore.QRect(10, 460, 132, 16))
 
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPixelSize(13)
         font.setItalic(True)
 
         self.total_balance.setFont(font)
@@ -246,7 +246,7 @@ class MAIN(object):
         self.cash_balance.setGeometry(QtCore.QRect(10, 520, 81, 16))
 
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPixelSize(13)
         font.setItalic(True)
 
         self.cash_balance.setFont(font)
@@ -281,7 +281,7 @@ class MAIN(object):
         self.manual_coin_info.setGeometry(QtCore.QRect(390, 90, 211, 31))
 
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPixelSize(17)
         font.setItalic(True)
 
         self.manual_coin_info.setFont(font)
@@ -307,7 +307,7 @@ class MAIN(object):
         self.write_coin_name.setGeometry(QtCore.QRect(440, 160, 111, 16))
 
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setPixelSize(12)
         font.setItalic(True)
 
         self.write_coin_name.setFont(font)
@@ -359,7 +359,7 @@ class MAIN(object):
         self.label.setFont(font)
 
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPixelSize(13)
         font.setItalic(True)
 
 ###PRICE INTERVAL TEXT LABEL###
@@ -387,7 +387,7 @@ class MAIN(object):
         self.hist_data_vis.setGeometry(QtCore.QRect(370, 340, 241, 16))
         
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPixelSize(17)
         font.setItalic(True)
 
         self.hist_data_vis.setFont(font)
@@ -403,7 +403,7 @@ class MAIN(object):
         self.starting_date.setGeometry(QtCore.QRect(370, 380, 101, 16))
 
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPixelSize(14)
         font.setItalic(True)
 
         self.starting_date.setFont(font)
@@ -495,7 +495,7 @@ class MAIN(object):
         
 
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPixelSize(15)
         font.setItalic(True)
 
         self.pushButton.setFont(font)
@@ -690,14 +690,7 @@ if __name__ == "__main__":
     Widget.show()
     sys.exit(app.exec_())
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = MAIN()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+
 
 ####SYS####    
 

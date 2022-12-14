@@ -651,7 +651,7 @@ class MAIN(object):
 class Coin_Info_Response(QThread):
 
     
-    total_balance_signal = pyqtSignal(float)
+    total_balance_signal = pyqtSignal(str)
     Coin_bought_signal = pyqtSignal(str)
     Cash_balance_signal = pyqtSignal(float)
     dataframe_signal = pyqtSignal(list)

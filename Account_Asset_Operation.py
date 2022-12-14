@@ -22,7 +22,7 @@ class Account(Signal_Analysis):
 
         self.coin_account = {
                 "COIN_ACCOUNT":
-                [{"coin" :"BTCUSDT" ,"coin_amt" : 0,}]
+                []
                 } 
                   
         self. a = []
@@ -41,7 +41,7 @@ class Account(Signal_Analysis):
             if self.info["balances"][i]["asset"] in self.a:
 
                 if float(self.info["balances"][i]["free"]) > 0:
-                    self.coin_account["COIN_ACCOUNT"].append({"coin" :(self.info["balances"][i]["asset"]+"USDT") ,"coin_amt" : float(self.info["balances"][i]["free"])})
+                    self.coin_account["COIN_ACCOUNT"].append({"coin" :(self.info["balances"][i]["asset"]+"USDT") ,"coin_amt" : float(self.info["balances"][i]["free"]),"dolar_eq" :  "%.3f" % (float(self.info["balances"][i]["free"])*float(GI((self.info["balances"][i]["asset"]+"USDT")).give_current_price()))})
             
         
 
@@ -74,7 +74,7 @@ class Account(Signal_Analysis):
 
         self.total_balance = self.total_balance + self.cash_balance
 
-        return self.total_balance
+        return  "%.3f" % self.total_balance
 
     def show_amt_coin_bought(self):
 

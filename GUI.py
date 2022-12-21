@@ -53,6 +53,7 @@ class ENTRY(object):
         self.MainWindow1 = QtWidgets.QMainWindow()
         self.uu1 = MAIN()
         self.uu1.setupUi(self.MainWindow1)
+        
         self.MainWindow1.show()
         Widget.close()
         
@@ -85,7 +86,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(18)
-        font.setItalic(True)
+        
 
 
         self.welcome.setFont(font)
@@ -97,8 +98,8 @@ class MAIN(object):
 ####STARTING BOT BUTTON######
         
         self.start_bot = QtWidgets.QPushButton(self.centralwidget)
-        self.start_bot.setGeometry(QtCore.QRect(90, 90, 111, 24))
-
+        self.start_bot.setGeometry(QtCore.QRect(90, 90, 130, 24))
+        
 
         
 
@@ -108,7 +109,7 @@ class MAIN(object):
         
         font = QtGui.QFont()
         font.setPixelSize(13)
-        font.setItalic(True)
+        
 
         self.start_bot.setFont(font)
         self.start_bot.setObjectName("start_bot")
@@ -121,17 +122,17 @@ class MAIN(object):
 
         self.stop_bot = QtWidgets.QPushButton(self.centralwidget)
 
-        self.stop_bot.setGeometry(QtCore.QRect(90, 580, 111, 24))
+        self.stop_bot.setGeometry(QtCore.QRect(90, 580, 130, 24))
 
         
         
         font = QtGui.QFont()
         font.setPixelSize(13)
-        font.setItalic(True)
+        
 
         self.stop_bot.setFont(font)
         self.stop_bot.setObjectName("stop_bot")
-
+        
 ####STOP BOT BUTTON######
 
 
@@ -144,7 +145,7 @@ class MAIN(object):
 
 
         font = QtGui.QFont()
-        font.setItalic(True)
+        
 
         self.trading_started.setFont(font)
         self.trading_started.setObjectName("trading_started")
@@ -161,7 +162,7 @@ class MAIN(object):
 
 
         font = QtGui.QFont()
-        font.setItalic(True)
+        
 
         self.trading_ended.setFont(font)
         self.trading_ended.setObjectName("trading_ended")
@@ -186,7 +187,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(13)
-        font.setItalic(True)
+        
 
         self.Asset_order.setFont(font)
         self.Asset_order.setObjectName("Asset_order")
@@ -214,7 +215,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(13)
-        font.setItalic(True)
+        
 
 
         self.account.setFont(font)
@@ -231,7 +232,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(13)
-        font.setItalic(True)
+        
 
         self.total_balance.setFont(font)
         self.total_balance.setObjectName("total_balance")
@@ -247,7 +248,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(13)
-        font.setItalic(True)
+        
 
         self.cash_balance.setFont(font)
         self.cash_balance.setObjectName("cash_balance")
@@ -282,7 +283,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(17)
-        font.setItalic(True)
+        
 
         self.manual_coin_info.setFont(font)
         self.manual_coin_info.setObjectName("manual_coin_info")
@@ -308,7 +309,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(12)
-        font.setItalic(True)
+        
 
         self.write_coin_name.setFont(font)
         self.write_coin_name.setObjectName("write_coin_name")
@@ -360,7 +361,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(13)
-        font.setItalic(True)
+        
 
 ###PRICE INTERVAL TEXT LABEL###
 
@@ -388,7 +389,7 @@ class MAIN(object):
         
         font = QtGui.QFont()
         font.setPixelSize(17)
-        font.setItalic(True)
+        
 
         self.hist_data_vis.setFont(font)
         self.hist_data_vis.setObjectName("hist_data_vis")
@@ -404,7 +405,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(14)
-        font.setItalic(True)
+        
 
         self.starting_date.setFont(font)
         self.starting_date.setObjectName("starting_date")
@@ -496,7 +497,7 @@ class MAIN(object):
 
         font = QtGui.QFont()
         font.setPixelSize(15)
-        font.setItalic(True)
+        
 
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
@@ -525,7 +526,7 @@ class MAIN(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.welcome.setText(_translate("MainWindow", "Welcome to the Trading Bot Testing"))
-        self.start_bot.setText(_translate("MainWindow", "Start Trading"))
+        self.start_bot.setText(_translate("MainWindow", "Start Balance Display"))
         self.trading_started.setText(_translate("MainWindow", "Trading has started!"))
         self.Asset_order.setText(_translate("MainWindow", "Asset order :"))
         self.account.setText(_translate("MainWindow", "Account :"))
@@ -542,7 +543,7 @@ class MAIN(object):
         self.ma2.setText(_translate("MainWindow", "ma2 :"))
         self.pushButton.setText(_translate("MainWindow", "Generate the Graph"))
         self.label.setText(_translate("MainWindow", "Price Interval : "))
-        self.stop_bot.setText(_translate("MainWindow", "Stop Trading"))
+        self.stop_bot.setText(_translate("MainWindow", "Stop Balance Display"))
         self.trading_ended.setText(_translate("MainWindow", "Trading has ended!"))
 
 ##### MENU ADJUSTING SETTINGS ####

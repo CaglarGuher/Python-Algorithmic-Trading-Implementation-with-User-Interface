@@ -2,6 +2,7 @@
 
 This project is a cryptocurrency trading bot with a graphical user interface (GUI) built using Python. It allows users to fetch historical price data, visualize it with various parameters, and interact with their trading account on the Binance exchange. The bot uses Binance API, pandas, mplfinance, and PyQt5 libraries to manage data and create visualizations.
 
+ 
 ## Features
 
 1. **Account and Asset Operations**: The bot can display a user's account information, including their total asset balance, cash balance, and individual coin balances.

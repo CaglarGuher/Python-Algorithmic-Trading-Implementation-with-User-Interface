@@ -1,34 +1,66 @@
-# Crypto Trading Bot
+# PyTrade: Detailed Project Overview
 
-This project is a cryptocurrency trading bot with a graphical user interface (GUI) built using Python. It allows users to fetch historical price data, visualize it with various parameters, and interact with their trading account on the Binance exchange. The bot uses Binance API, pandas, mplfinance, and PyQt5 libraries to manage data and create visualizations.
+## Introduction
 
- 
-## Features
+PyTrade is a Python project  designed to collect and analyze detailed information about the cryptocurrency market with the user interface. The script utilizes the Binance Python API to gather data on coin prices, including close and open prices, trading volume, and other essential market metrics. PyTrade offers a user-friendly interface that enables users to interact with their Binance accounts, view their account balances (both cash and coins), access a list of available coins in their balance, create coin graphs, and add Moving Average (MA) and volume indicators to these graphs. Additionally, the script incorporates a sophisticated signal analysis component, leveraging various indicators such as Exponential Moving Average (EMA), Relative Strength Index (RSI), and Bollinger Bands to provide buy or don't buy signals for the listed coins.
 
-1. **Account and Asset Operations**: The bot can display a user's account information, including their total asset balance, cash balance, and individual coin balances.
-2. **Data Preprocessing**: The bot processes data fetched from Binance API into pandas DataFrames and adjusts it for proper visualization and interaction.
-3. **GUI**: The graphical user interface has various sections, including start/stop balance display, manual coin information, historical data visualization, and moving average settings.
-4. **Historical Data Visualization**: The bot allows users to visualize historical price data with various parameters, such as moving averages, volume visualization, and different time intervals.
-5. **Coin Information**: Users can fetch and display the current price of a given cryptocurrency.
+## Data Collection and Interface
 
-## Components
+PyTrade begins its process by connecting to the Binance exchange through the Binance Python API. By doing so, it gains access to real-time market data for various cryptocurrencies. This data includes the prices of coins at different time intervals (close and open prices), trading volume, and other relevant trading information. The collected data is stored in Pandas DataFrames, which facilitate efficient data manipulation and analysis.
 
-1. **Account_Asset_Operation**: This component fetches and processes a user's account and asset information from Binance API and manages their balances. It includes classes such as `Account` and `Coin_Info_Response`, which handle interactions with the Binance API and manage the account's data.
+The user interface serves as an essential component of PyTrade, providing users with a seamless experience to interact with their Binance account. Through the interface, users can view their account balance, which includes both their cash and coins holdings. Furthermore, they can access a comprehensive list of available coins along with the ability to create graphs that visually represent the historical price movements of selected cryptocurrencies.
 
-2. **Df_adjusting_process**: This component adjusts the raw data fetched from Binance API into a pandas DataFrame, suitable for visualization and interaction. It includes functions like `give_df` and `give_current_price` that process and return the historical price data in the desired format.
+## Signal Analysis - Technical Indicators
 
-3. **GUI (part1, part2, final part)**: These components are responsible for creating the graphical user interface using PyQt5. They define various widgets, such as buttons, labels, and text input fields, and connect them to their respective functions. The GUI is divided into different sections, such as start/stop balance display, manual coin information, historical data visualization, and moving average settings. The GUI also handles user interactions, like clicking buttons or entering text, and executes the corresponding functions.
+The heart of PyTrade lies in its  signal analysis component, which assists users in making informed trading decisions. The script applies four technical indicators to analyze the potential market trends for listed coins:
 
-4. **get_coin_info and Get_info**: These components are responsible for fetching historical price data, processing it, and generating visualizations using the mplfinance library. The `Get_info` class contains methods for setting the moving average values, price intervals, and other parameters for the visualization. It also provides methods for fetching and processing historical price data.
+1. Exponential Moving Average (EMA) Indicator: The EMA is a trend-following indicator that smooths out price data to identify trends over specified time periods. By calculating the EMA values for different coins, PyTrade gains insights into their price trends and potential market directions.
+![Alt Text](images/1.png)
 
-## Usage
+2. Relative Strength Index (RSI) Indicator: The RSI is a momentum oscillator that measures the speed and change of price movements. It ranges from 0 to 100 and is used to identify overbought or oversold conditions in the market. PyTrade utilizes the RSI to assess the strength of listed coins and identify potential reversal points.
+![Alt Text](images/2.png)
 
-To use the trading bot, first, install the required libraries:
+3. Bollinger Bands Indicator: Bollinger Bands consist of a middle SMA line and two standard deviation lines above and below it. These bands help identify potential price breakouts and volatility changes in the market. PyTrade employs Bollinger Bands to assess the price volatility and potential trading opportunities for the listed coins.
+![Alt Text](images/3.png)
 
-```bash
-pip install binance, pandas, mplfinance, PyQt5
-```
-Then, run the main script to launch the trading bot's graphical user interface. Input your Binance API key and secret, and interact with the various widgets to fetch historical price data, visualize it, and manage your trading account.
+## Signal Analysis - Machine Learning
 
-## License
-This project is for educational purposes only. Users should exercise caution when using it with real trading accounts and ensure they understand the risks associated with trading cryptocurrencies. The authors of this project are not responsible for any potential losses incurred by users.
+Having calculated the necessary indicators, PyTrade proceeds with machine learning techniques to generate buy or don't buy signals for the listed coins. This process involves the following steps:
+
+1. Dataset Preparation: The dataset is constructed using the calculated EMA, RSI, and Bollinger Bands values for the listed coins. Historical price data is used to create both training and testing datasets.
+
+2. Random Forest Classifier: PyTrade uses the Random Forest Classifier, a popular machine learning algorithm, to build predictive models based on the datasets. The classifier considers multiple decision trees and outputs a binary (0 or 1) prediction for each coin. A prediction of 1 implies a buy signal, while 0 indicates a don't buy signal.
+
+## Signal Analysis - Reinforcement Learning
+![Alt Text](images/4.png)
+
+In addition to machine learning, PyTrade also incorporates reinforcement learning for further signal analysis. Specifically, it employs the Advantage Actor-Critic (A2C) algorithm, a popular reinforcement learning technique, to make trading decisions. This process involves creating an environment for the algorithm, allowing it to simulate trades and generate buy or don't buy signals based on the results. The algorithm repeats this process several times, optimizing its performance to provide the most accurate signals.
+![Alt Text](images/5.png)
+
+## User Interface
+
+PyTrade provides a user-friendly interface that allows users to interact with their Binance account and access valuable information about the cryptocurrency market.First user put their api_key and api_Secret in order to access their balance
+![Alt Text](images/6.png)
+
+
+### Features
+
+1. Account Balance: The interface displays the user's account balance, which includes both the cash and coins holdings in their Binance account. This feature helps users stay informed about their available funds for trading.
+![Alt Text](images/main screen.png)
+
+2. List of Available Coins: Users can easily access a comprehensive list of available coins in their balance. This feature enables users to quickly identify the cryptocurrencies they hold and plan their trading strategies accordingly.
+![Alt Text](images/7.png)
+
+
+3. Coin Graphs: PyTrade allows users to create interactive graphs for individual coins. These graphs visualize the historical price movements of selected cryptocurrencies, providing insights into their past performance.
+![Alt Text](images/8.png)
+
+
+4. Technical Indicators: Users can add Technical Indicators such as Moving Averages (MA) and volume data to the coin graphs. These indicators assist in identifying trends and potential trading opportunities.
+![Alt Text](images/9.png)
+
+## Conclusion
+
+PyTrade is a powerful and feature-rich Python script that offers users detailed insights into the cryptocurrency market. By collecting and analyzing real-time market data using technical indicators and machine learning techniques, PyTrade equips users with buy or don't buy signals for listed coins, empowering them to make well-informed trading decisions.
+
+The script's user-friendly interface makes it accessible to users of varying experience levels, and its integration with Binance's API ensures accurate and up-to-date market information. Whether you are a seasoned cryptocurrency trader or a newcomer to the market, PyTrade can serve as a valuable tool in your trading journey.

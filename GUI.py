@@ -4,7 +4,6 @@ from PyQt5.QtCore import QThread ,  pyqtSignal
 from Get_coin_info import Get_info as GI
 from Account_Asset_Operation import Account 
 from Df_adjusting_process import DataFrameModel
-from Signal_Analysis import Signal_Analysis as SA
 import time
 import pandas as pd
 

@@ -1,14 +1,14 @@
 import pandas as pd
 import json
 from datetime import datetime
-import api2
 import time
 import mplfinance as mpf
-from api_access import client , Client
+from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager
+
 
 class Get_info():
 
-    def __init__(self , coinname ,  startdate ="01.01.2021" , 
+    def __init__(self , coinname ,api_key,api_secret,  startdate ="01.01.2021" , 
     interval = "4h" ,  dataframe = [], show_volume = False,show_ma = False, ma1 = 0 , ma2 = 0):
         '''
         format examples:
@@ -16,6 +16,8 @@ class Get_info():
         interval format = "1m"
         fromtime format = "2020-06-06"
         '''
+        self.api_key = api_key
+        self.api_secret = api_secret
         self.coinname =coinname
         self.interval = interval
         self.startdate = startdate
@@ -24,6 +26,8 @@ class Get_info():
         self.ma2 = ma2
         self.show_volume = show_volume
         self.show_ma = show_ma
+        
+        
 ############################################
     Client.KLINE_INTERVAL_1MONTH = "1m"
     Client.KLINE_INTERVAL_1WEEK = "1w"
@@ -40,10 +44,8 @@ class Get_info():
     Client.KLINE_INTERVAL_1MINUTE = "1min"
 ############################################
     def give_df(self):
-       
-
+        client = Client(self.api_key, self.api_secret)
         from_time = int(datetime.strptime(self.startdate, "%Y-%m-%d").timestamp()*1000)
-
         self.dataframe =  pd.DataFrame(client.get_historical_klines(self.coinname , self.interval , from_time))
         self.dataframe.columns = ["Opentime","Open","High","Low","Close","Volume","CloseTime","QuoteAssetTime","NumberOfTrades","VolumeOver24HourPeriod","PriceOver24HourPeriod ","Ignore"]
         columns_to_float = ["Open","High","Low","Close","Volume","NumberOfTrades"]
@@ -51,72 +53,39 @@ class Get_info():
         self.dataframe.drop(["Ignore","QuoteAssetTime","VolumeOver24HourPeriod","PriceOver24HourPeriod "],axis=1,inplace=True)
         self.dataframe["Opentime"] = pd.to_datetime(self.dataframe["Opentime"]/1000,unit ="s")
         self.dataframe["CloseTime"] = pd.to_datetime(self.dataframe["CloseTime"]/1000,unit ="s")
-
         return self.dataframe
 
-        
+    def give_current_price(self):
+        client = Client(self.api_key, self.api_secret)
+        return float(client.get_symbol_ticker(symbol=self.coinname)["price"])
 
-    def give_current_price(self ):
-
-        return float(client.get_margin_price_index(symbol=self.coinname)["price"])
-
-       
-
-
-    
 
     def set_ma1_value(self,ma1 = int):
-
         self.ma1 = ma1
         return self.ma1
 
-    
-
     def set_ma2_value(self,ma2 = int):
-        
         self.ma2 = ma2
         return self.ma2
 
-    
-
     def hist_data_start_date(self,startdate):
-
         self.startdate = startdate
-
         return self.startdate
     
-    
     def set_volume_visualization(self,show_volume):
-
         self.show_volume = show_volume
-
-        return  self.show_volume
-
-        
-        
+        return  self.show_volume   
 
     def set_price_interval(self,interval):
-
         self.interval = interval
-
         return self.interval
 
-
-
     def show_graph(self,show_ma):
-
         self.show_ma = show_ma
-
         Get_info.give_df(self)
-        
         if self.show_ma :
-            
-
             return mpf.plot(self.dataframe.set_index("CloseTime"),type = "line" ,style = "charles",mav =(self.ma1,self.ma2),volume = self.show_volume)
-        
         else:
-
-
             return mpf.plot(self.dataframe.set_index("CloseTime"),type = "line" ,style = "charles",volume = self.show_volume)
 
 

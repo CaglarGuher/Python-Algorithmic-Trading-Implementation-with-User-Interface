@@ -11,7 +11,12 @@ import pandas as pd
 
 
 class ENTRY(object):
+
     def setupUi(self, Widget):
+
+        self.api_key = ""
+        self.api_secret = ""
+
         Widget.setObjectName("Widget")
         Widget.resize(684, 205)
         self.lineEdit = QtWidgets.QLineEdit(Widget)
@@ -50,20 +55,28 @@ class ENTRY(object):
 
     def go_to_main(self):
 
+        self.api_key = str(self.lineEdit.text())
+        self.api_secret = str(self.lineEdit_2.text())
+
+        if not self.api_key or not self.api_secret:
+            return
+
         self.MainWindow1 = QtWidgets.QMainWindow()
-        self.uu1 = MAIN()
+        self.uu1 = MAIN(self.api_key, self.api_secret)  
         self.uu1.setupUi(self.MainWindow1)
-        
+
         self.MainWindow1.show()
         Widget.close()
-        
 
 
 
 
 ##############MAIN GUI CLASS##################
 class MAIN(object):
+    def __init__(self,api_key,api_secret):
 
+        self.api_key = api_key
+        self.api_secret = api_secret
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -273,21 +286,14 @@ class MAIN(object):
         self.cash_balance_display.setGeometry(QtCore.QRect(10, 540, 300, 31))
         self.cash_balance_display.setObjectName("cash_balance_display")
 
-####CASH BALANCE DISPLAY####
-
-
-
+####CASH BALANCE DISPLAY###
 ###MANUAL COIN INFO TEXT LABEL###
         self.manual_coin_info = QtWidgets.QLabel(self.centralwidget)
         self.manual_coin_info.setGeometry(QtCore.QRect(390, 90, 211, 31))
-
         font = QtGui.QFont()
         font.setPixelSize(17)
-        
-
         self.manual_coin_info.setFont(font)
         self.manual_coin_info.setObjectName("manual_coin_info")
-
 ###MANUAL COIN INFO TEXT LABEL###
 
 
@@ -559,13 +565,14 @@ class MAIN(object):
     def give_coin_price(self):
 
         self.price_display.clear()
-        self.price_display.append(str(GI(self.coin_name_input.text()).give_current_price()))
+        self.price_display.append(str(GI(api_secret = self.api_secret,api_key =self.api_key,coinname =self.coin_name_input.text()).give_current_price()))
+        
 
 
     
     def show_graphs(self):
         if self.include_ma.isChecked():
-            result =GI(self.coin_name_input.text())
+            result =GI(api_secret = self.api_secret,api_key =self.api_key,coinname=self.coin_name_input.text())
             result.hist_data_start_date(str(self.dateEdit.date().toPyDate()))
             result.set_ma1_value(int(self.ma1_input.text()))
             result.set_ma2_value(int(self.ma2_input.text()))
@@ -573,7 +580,7 @@ class MAIN(object):
             result.set_volume_visualization(self.include_volume.isChecked())
             return result.show_graph(self.include_ma.isChecked())
         else:
-            result =GI(self.coin_name_input.text())
+            result =GI(api_secret = self.api_secret,api_key =self.api_key,coinname=self.coin_name_input.text())
             result.hist_data_start_date(str(self.dateEdit.date().toPyDate()))
             result.set_price_interval(str(self.comboBox.currentText()))
             result.set_volume_visualization(self.include_volume.isChecked())
@@ -592,7 +599,7 @@ class MAIN(object):
 
     def start_trading(self):
         self.trading_ended.setVisible(False)
-        self.worker1 = Coin_Info_Response()
+        self.worker1 = Coin_Info_Response(self.api_key,self.api_secret)
         self.thread = QThread()
         self.thread.start()
         self.worker1.moveToThread(self.thread)
@@ -612,23 +619,14 @@ class MAIN(object):
         self.asset_order_show.clear()
         self.trading_ended.setVisible(True)
 
-
-
-        
     def emit_cash_balance(self,value):
         self.cash_balance_display.setText(str(value))
-
-
 
     def emit_total_balance(self,value):
         self.total_balance_display.setText(str(value))
 
-
-
     def emit_coin_bought(self,value):
         self.asset_order_show.setText(str(value))
-
-
 
     def emit_and_turn_into_df(self,value):
         self.datframe = pd.DataFrame(value)
@@ -650,20 +648,21 @@ class MAIN(object):
 ###QTHREAD CLASS##############################
 
 class Coin_Info_Response(QThread):
-
-    
     total_balance_signal = pyqtSignal(str)
     Coin_bought_signal = pyqtSignal(str)
     Cash_balance_signal = pyqtSignal(float)
     dataframe_signal = pyqtSignal(list)
 
-
+    def __init__(self,api_key,api_secret):
+        super().__init__()
+        self.api_key = api_key
+        self.api_secret = api_secret
 
     def run(self):
         self.start_trading = True
         
         while self.start_trading:
-            self.account = Account()
+            self.account = Account(self.api_key, self.api_secret)
             self.total_balance_signal.emit(self.account.show_total_balance())
             self.Coin_bought_signal.emit("testing, no coin will be bought")
             self.Cash_balance_signal.emit(self.account.show_cash_balance())

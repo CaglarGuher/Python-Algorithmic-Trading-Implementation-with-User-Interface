@@ -63,7 +63,10 @@ PyTrade provides a user-friendly interface that allows users to interact with th
 ### Features
 
 1. Account Balance: The interface displays the user's account balance, which includes both the cash and coins holdings in their Binance account. This feature helps users stay informed about their available funds for trading.
-![Alt Text](images/main screen.png)
+
+
+
+![Alt Text](images/mainscreen.png)
 
 2. List of Available Coins: Users can easily access a comprehensive list of available coins in their balance. This feature enables users to quickly identify the cryptocurrencies they hold and plan their trading strategies accordingly.
 

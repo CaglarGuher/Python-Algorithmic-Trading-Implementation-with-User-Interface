@@ -15,7 +15,9 @@ The user interface serves as an essential component of PyTrade, providing users 
 The heart of PyTrade lies in its  signal analysis component, which assists users in making informed trading decisions. The script applies four technical indicators to analyze the potential market trends for listed coins:
 
 1. Exponential Moving Average (EMA) Indicator: The EMA is a trend-following indicator that smooths out price data to identify trends over specified time periods. By calculating the EMA values for different coins, PyTrade gains insights into their price trends and potential market directions.
-![qweqweqweqwe](images/1.png)
+
+
+![](images/1.png)
 
 2. Relative Strength Index (RSI) Indicator: The RSI is a momentum oscillator that measures the speed and change of price movements. It ranges from 0 to 100 and is used to identify overbought or oversold conditions in the market. PyTrade utilizes the RSI to assess the strength of listed coins and identify potential reversal points.
 

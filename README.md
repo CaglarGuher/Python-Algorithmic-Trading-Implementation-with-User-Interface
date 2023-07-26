@@ -18,9 +18,13 @@ The heart of PyTrade lies in its  signal analysis component, which assists users
 ![qweqweqweqwe](images/1.png)
 
 2. Relative Strength Index (RSI) Indicator: The RSI is a momentum oscillator that measures the speed and change of price movements. It ranges from 0 to 100 and is used to identify overbought or oversold conditions in the market. PyTrade utilizes the RSI to assess the strength of listed coins and identify potential reversal points.
+
+
 ![Alt Text](images/2.png)
 
 3. Bollinger Bands Indicator: Bollinger Bands consist of a middle SMA line and two standard deviation lines above and below it. These bands help identify potential price breakouts and volatility changes in the market. PyTrade employs Bollinger Bands to assess the price volatility and potential trading opportunities for the listed coins.
+
+
 ![Alt Text](images/3.png)
 
 ## Signal Analysis - Machine Learning
@@ -32,14 +36,23 @@ Having calculated the necessary indicators, PyTrade proceeds with machine learni
 2. Random Forest Classifier: PyTrade uses the Random Forest Classifier, a popular machine learning algorithm, to build predictive models based on the datasets. The classifier considers multiple decision trees and outputs a binary (0 or 1) prediction for each coin. A prediction of 1 implies a buy signal, while 0 indicates a don't buy signal.
 
 ## Signal Analysis - Reinforcement Learning
+
+
+
 ![Alt Text](images/4.png)
 
 In addition to machine learning, PyTrade also incorporates reinforcement learning for further signal analysis. Specifically, it employs the Advantage Actor-Critic (A2C) algorithm, a popular reinforcement learning technique, to make trading decisions. This process involves creating an environment for the algorithm, allowing it to simulate trades and generate buy or don't buy signals based on the results. The algorithm repeats this process several times, optimizing its performance to provide the most accurate signals.
+
+
+
 ![Alt Text](images/5.png)
 
 ## User Interface
 
 PyTrade provides a user-friendly interface that allows users to interact with their Binance account and access valuable information about the cryptocurrency market.First user put their api_key and api_Secret in order to access their balance
+
+
+
 ![Alt Text](images/6.png)
 
 

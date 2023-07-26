@@ -43,11 +43,13 @@ Having calculated the necessary indicators, PyTrade proceeds with machine learni
 
 ![Alt Text](images/4.png)
 
+
 In addition to machine learning, PyTrade also incorporates reinforcement learning for further signal analysis. Specifically, it employs the Advantage Actor-Critic (A2C) algorithm, a popular reinforcement learning technique, to make trading decisions. This process involves creating an environment for the algorithm, allowing it to simulate trades and generate buy or don't buy signals based on the results. The algorithm repeats this process several times, optimizing its performance to provide the most accurate signals.
 
 
 
 ![Alt Text](images/5.png)
+
 
 ## User Interface
 
@@ -64,15 +66,24 @@ PyTrade provides a user-friendly interface that allows users to interact with th
 ![Alt Text](images/main screen.png)
 
 2. List of Available Coins: Users can easily access a comprehensive list of available coins in their balance. This feature enables users to quickly identify the cryptocurrencies they hold and plan their trading strategies accordingly.
+
+
 ![Alt Text](images/7.png)
 
 
-3. Coin Graphs: PyTrade allows users to create interactive graphs for individual coins. These graphs visualize the historical price movements of selected cryptocurrencies, providing insights into their past performance.
+
+4. Coin Graphs: PyTrade allows users to create interactive graphs for individual coins. These graphs visualize the historical price movements of selected cryptocurrencies, providing insights into their past performance.
+
+
 ![Alt Text](images/8.png)
 
 
-4. Technical Indicators: Users can add Technical Indicators such as Moving Averages (MA) and volume data to the coin graphs. These indicators assist in identifying trends and potential trading opportunities.
+5. Technical Indicators: Users can add Technical Indicators such as Moving Averages (MA) and volume data to the coin graphs. These indicators assist in identifying trends and potential trading opportunities.
+
+
 ![Alt Text](images/9.png)
+
+
 
 ## Conclusion
 

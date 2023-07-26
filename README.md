@@ -50,9 +50,6 @@ In addition to machine learning, PyTrade also incorporates reinforcement learnin
 
 ![Alt Text](images/5.png)
 
-In final , the output is :{'BTCUSDT': 0, 'ETHUSDT': 2} which means eth has score 2 out of 4 but btc is 0 , this result is an example and the real output will be the all markets listed with the corresponding points
-
-
 ## User Interface
 
 PyTrade provides a user-friendly interface that allows users to interact with their Binance account and access valuable information about the cryptocurrency market.First user put their api_key and api_Secret in order to access their balance

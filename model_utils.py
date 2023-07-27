@@ -204,6 +204,3 @@ class Signal_analysis():
             score_table[item] = item_score  
         return score_table
     
-
-print(Signal_analysis(api_key="ZIuzde2gPV4OmU7ZQxmfbQ4m0ntSoaGMpLUgXe95vL3cAZVjcEThsOCFDtz041rO",
-                api_secret="rEAT9OU3iYEN3bkvwtSjqWB1eVJflthuDN7q6MMNdXN94ngycqB0fBUi4IxlkNvv").overall_signal_rate(COINS))

@@ -87,8 +87,3 @@ PyTrade provides a user-friendly interface that allows users to interact with th
 
 
 
-## Conclusion
-
-PyTrade is a powerful and feature-rich Python script that offers users detailed insights into the cryptocurrency market. By collecting and analyzing real-time market data using technical indicators and machine learning techniques, PyTrade equips users with buy or don't buy signals for listed coins, empowering them to make well-informed trading decisions.
-
-The script's user-friendly interface makes it accessible to users of varying experience levels, and its integration with Binance's API ensures accurate and up-to-date market information. Whether you are a seasoned cryptocurrency trader or a newcomer to the market, PyTrade can serve as a valuable tool in your trading journey.
